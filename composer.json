@@ -1,0 +1,94 @@
+{
+    "name": "grazulex/laravel-snapshot",
+    "description": "A powerful Laravel package for tracking, storing and comparing snapshots of your Eloquent models — cleanly and safely.",
+    "keywords": [
+        "laravel",
+        "snapshot",
+        "model-snapshot",
+        "diff",
+        "comparison",
+        "audit",
+        "tracking",
+        "state-capture",
+        "testing",
+        "debugging",
+        "eloquent",
+        "serialization"
+    ],
+    "type": "library",
+    "homepage": "https://github.com/grazulex/laravel-snapshot",
+    "require": {
+        "php": "^8.3",
+        "illuminate/support": "^12.19",
+        "nesbot/carbon": "^3.10",
+        "illuminate/contracts": "^12.0",
+        "symfony/yaml": "^7.3"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.22",
+        "pestphp/pest": "^3.8",
+        "pestphp/pest-plugin-laravel": "^3.2",
+        "larastan/larastan": "^3.4",
+        "rector/rector": "^2.0",
+        "doctrine/dbal": "^4.2",
+        "orchestra/testbench": "^10.0"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Grazulex\\LaravelSnapshot\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Grazulex\\LaravelSnapshot\\LaravelSnapshotServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Jean-Marc Strauven",
+            "email": "jms@grazulex.be",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/Grazulex/laravel-snapshot/issues",
+        "source": "https://github.com/Grazulex/laravel-snapshot",
+        "forum": "https://github.com/Grazulex/laravel-snapshot/discussions",
+        "docs": "https://github.com/Grazulex/laravel-snapshot#readme"
+    },
+    "scripts": {
+        "test": [
+            "./vendor/bin/pest --colors=always --coverage"
+        ],
+        "pint": [
+            "./vendor/bin/pint"
+        ],
+        "phpstan": [
+            "./vendor/bin/phpstan analyse --memory-limit=2G --configuration=phpstan.neon"
+        ],
+        "rector": [
+            "./vendor/bin/rector"
+        ],
+        "full": [
+            "composer run-script pint",
+            "composer run-script phpstan",
+            "composer run-script rector",
+            "composer run-script test"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
