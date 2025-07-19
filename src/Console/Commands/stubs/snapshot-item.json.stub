@@ -1,0 +1,6 @@
+        {
+            "label": "{{SNAPSHOT_LABEL}}",
+            "event_type": "{{EVENT_TYPE}}",
+            "created_at": "{{CREATED_AT}}",
+            "data": {{SNAPSHOT_DATA}}
+        }

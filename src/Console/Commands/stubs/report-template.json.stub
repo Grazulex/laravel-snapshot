@@ -1,0 +1,11 @@
+{
+    "model": {
+        "class": "{{MODEL_CLASS}}",
+        "id": "{{MODEL_ID}}"
+    },
+    "generated_at": "{{GENERATED_AT}}",
+    "total_snapshots": {{TOTAL_SNAPSHOTS}},
+    "snapshots": [
+        {{SNAPSHOTS_CONTENT}}
+    ]
+}

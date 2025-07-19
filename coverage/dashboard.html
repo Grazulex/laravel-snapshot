@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /home/jean-marc-strauven/Dev/laravel-snapshot/src</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=11.0.10" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css?v=11.0.10" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=11.0.10" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/home/jean-marc-strauven/Dev/laravel-snapshot/src</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Console/Commands/DiffSnapshotCommand.php.html#11">Grazulex\LaravelSnapshot\Console\Commands\DiffSnapshotCommand</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/GenerateReportCommand.php.html#11">Grazulex\LaravelSnapshot\Console\Commands\GenerateReportCommand</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/ListSnapshotsCommand.php.html#11">Grazulex\LaravelSnapshot\Console\Commands\ListSnapshotsCommand</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/SaveSnapshotCommand.php.html#11">Grazulex\LaravelSnapshot\Console\Commands\SaveSnapshotCommand</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/SnapshotListCommand.php.html#11">Grazulex\LaravelSnapshot\Console\Commands\SnapshotListCommand</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LaravelSnapshotServiceProvider.php.html#9">Grazulex\LaravelSnapshot\LaravelSnapshotServiceProvider</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/ModelSnapshot.php.html#21">Grazulex\LaravelSnapshot\Models\ModelSnapshot</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#12">Grazulex\LaravelSnapshot\Reports\SnapshotReport</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#15">Grazulex\LaravelSnapshot\Snapshot</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/DatabaseStorage.php.html#9">Grazulex\LaravelSnapshot\Storage\DatabaseStorage</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#7">Grazulex\LaravelSnapshot\Storage\FileStorage</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#16">Grazulex\LaravelSnapshot\Traits\HasSnapshots</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SnapshotStats.php.html#10">Grazulex\LaravelSnapshot\SnapshotStats</a></td><td class="text-right">3%</td></tr>
+       <tr><td><a href="Support/TemplateRenderer.php.html#9">Grazulex\LaravelSnapshot\Support\TemplateRenderer</a></td><td class="text-right">35%</td></tr>
+       <tr><td><a href="SnapshotManager.php.html#10">Grazulex\LaravelSnapshot\SnapshotManager</a></td><td class="text-right">50%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Snapshot.php.html#15">Grazulex\LaravelSnapshot\Snapshot</a></td><td class="text-right">1640</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#12">Grazulex\LaravelSnapshot\Reports\SnapshotReport</a></td><td class="text-right">812</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#7">Grazulex\LaravelSnapshot\Storage\FileStorage</a></td><td class="text-right">420</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#16">Grazulex\LaravelSnapshot\Traits\HasSnapshots</a></td><td class="text-right">306</td></tr>
+       <tr><td><a href="Console/Commands/DiffSnapshotCommand.php.html#11">Grazulex\LaravelSnapshot\Console\Commands\DiffSnapshotCommand</a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="Storage/DatabaseStorage.php.html#9">Grazulex\LaravelSnapshot\Storage\DatabaseStorage</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Support/TemplateRenderer.php.html#9">Grazulex\LaravelSnapshot\Support\TemplateRenderer</a></td><td class="text-right">74</td></tr>
+       <tr><td><a href="SnapshotStats.php.html#10">Grazulex\LaravelSnapshot\SnapshotStats</a></td><td class="text-right">64</td></tr>
+       <tr><td><a href="Console/Commands/GenerateReportCommand.php.html#11">Grazulex\LaravelSnapshot\Console\Commands\GenerateReportCommand</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Console/Commands/ListSnapshotsCommand.php.html#11">Grazulex\LaravelSnapshot\Console\Commands\ListSnapshotsCommand</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Console/Commands/SnapshotListCommand.php.html#11">Grazulex\LaravelSnapshot\Console\Commands\SnapshotListCommand</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Console/Commands/SaveSnapshotCommand.php.html#11">Grazulex\LaravelSnapshot\Console\Commands\SaveSnapshotCommand</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="LaravelSnapshotServiceProvider.php.html#9">Grazulex\LaravelSnapshot\LaravelSnapshotServiceProvider</a></td><td class="text-right">12</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Console/Commands/DiffSnapshotCommand.php.html#17"><abbr title="Grazulex\LaravelSnapshot\Console\Commands\DiffSnapshotCommand::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/GenerateReportCommand.php.html#17"><abbr title="Grazulex\LaravelSnapshot\Console\Commands\GenerateReportCommand::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/ListSnapshotsCommand.php.html#17"><abbr title="Grazulex\LaravelSnapshot\Console\Commands\ListSnapshotsCommand::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/SaveSnapshotCommand.php.html#17"><abbr title="Grazulex\LaravelSnapshot\Console\Commands\SaveSnapshotCommand::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/SnapshotListCommand.php.html#19"><abbr title="Grazulex\LaravelSnapshot\Console\Commands\SnapshotListCommand::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/SnapshotListCommand.php.html#25"><abbr title="Grazulex\LaravelSnapshot\Console\Commands\SnapshotListCommand::setStorage">setStorage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/SnapshotListCommand.php.html#30"><abbr title="Grazulex\LaravelSnapshot\Console\Commands\SnapshotListCommand::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LaravelSnapshotServiceProvider.php.html#14"><abbr title="Grazulex\LaravelSnapshot\LaravelSnapshotServiceProvider::boot">boot</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="LaravelSnapshotServiceProvider.php.html#37"><abbr title="Grazulex\LaravelSnapshot\LaravelSnapshotServiceProvider::register">register</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/ModelSnapshot.php.html#42"><abbr title="Grazulex\LaravelSnapshot\Models\ModelSnapshot::snapshotable">snapshotable</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/ModelSnapshot.php.html#50"><abbr title="Grazulex\LaravelSnapshot\Models\ModelSnapshot::getModelTypeAttribute">getModelTypeAttribute</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/ModelSnapshot.php.html#58"><abbr title="Grazulex\LaravelSnapshot\Models\ModelSnapshot::scopeForModel">scopeForModel</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/ModelSnapshot.php.html#66"><abbr title="Grazulex\LaravelSnapshot\Models\ModelSnapshot::scopeForEvent">scopeForEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/ModelSnapshot.php.html#74"><abbr title="Grazulex\LaravelSnapshot\Models\ModelSnapshot::scopeWithLabel">scopeWithLabel</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#22"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#31"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::for">for</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#39"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::format">format</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#49"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::options">options</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#59"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::withDiffs">withDiffs</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#69"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::period">period</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#79"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::generate">generate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#94"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::getSnapshots">getSnapshots</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#113"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::applyPeriodFilter">applyPeriodFilter</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#128"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::generateHtmlReport">generateHtmlReport</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#185"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::generateDiffContent">generateDiffContent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#198"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::generateJsonReport">generateJsonReport</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#214"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::generateCsvReport">generateCsvReport</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#22"><abbr title="Grazulex\LaravelSnapshot\Snapshot::save">save</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#30"><abbr title="Grazulex\LaravelSnapshot\Snapshot::auto">auto</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#40"><abbr title="Grazulex\LaravelSnapshot\Snapshot::scheduled">scheduled</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#50"><abbr title="Grazulex\LaravelSnapshot\Snapshot::load">load</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#58"><abbr title="Grazulex\LaravelSnapshot\Snapshot::diff">diff</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#77"><abbr title="Grazulex\LaravelSnapshot\Snapshot::list">list</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#85"><abbr title="Grazulex\LaravelSnapshot\Snapshot::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#93"><abbr title="Grazulex\LaravelSnapshot\Snapshot::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#101"><abbr title="Grazulex\LaravelSnapshot\Snapshot::stats">stats</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#109"><abbr title="Grazulex\LaravelSnapshot\Snapshot::timeline">timeline</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#126"><abbr title="Grazulex\LaravelSnapshot\Snapshot::setStorage">setStorage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#134"><abbr title="Grazulex\LaravelSnapshot\Snapshot::serializeModel">serializeModel</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#171"><abbr title="Grazulex\LaravelSnapshot\Snapshot::calculateDiff">calculateDiff</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#204"><abbr title="Grazulex\LaravelSnapshot\Snapshot::getStorage">getStorage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#223"><abbr title="Grazulex\LaravelSnapshot\Snapshot::createSnapshot">createSnapshot</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#254"><abbr title="Grazulex\LaravelSnapshot\Snapshot::generateAutoLabel">generateAutoLabel</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Snapshot.php.html#265"><abbr title="Grazulex\LaravelSnapshot\Snapshot::generateScheduledLabel">generateScheduledLabel</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SnapshotManager.php.html#24"><abbr title="Grazulex\LaravelSnapshot\SnapshotManager::setStorage">setStorage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SnapshotManager.php.html#39"><abbr title="Grazulex\LaravelSnapshot\SnapshotManager::list">list</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SnapshotManager.php.html#44"><abbr title="Grazulex\LaravelSnapshot\SnapshotManager::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SnapshotManager.php.html#49"><abbr title="Grazulex\LaravelSnapshot\SnapshotManager::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SnapshotStats.php.html#24"><abbr title="Grazulex\LaravelSnapshot\SnapshotStats::counters">counters</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SnapshotStats.php.html#45"><abbr title="Grazulex\LaravelSnapshot\SnapshotStats::mostChangedFields">mostChangedFields</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SnapshotStats.php.html#57"><abbr title="Grazulex\LaravelSnapshot\SnapshotStats::changeFrequency">changeFrequency</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SnapshotStats.php.html#79"><abbr title="Grazulex\LaravelSnapshot\SnapshotStats::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SnapshotStats.php.html#87"><abbr title="Grazulex\LaravelSnapshot\SnapshotStats::toJson">toJson</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/DatabaseStorage.php.html#14"><abbr title="Grazulex\LaravelSnapshot\Storage\DatabaseStorage::save">save</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/DatabaseStorage.php.html#24"><abbr title="Grazulex\LaravelSnapshot\Storage\DatabaseStorage::load">load</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/DatabaseStorage.php.html#34"><abbr title="Grazulex\LaravelSnapshot\Storage\DatabaseStorage::list">list</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/DatabaseStorage.php.html#54"><abbr title="Grazulex\LaravelSnapshot\Storage\DatabaseStorage::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/DatabaseStorage.php.html#62"><abbr title="Grazulex\LaravelSnapshot\Storage\DatabaseStorage::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#11"><abbr title="Grazulex\LaravelSnapshot\Storage\FileStorage::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#20"><abbr title="Grazulex\LaravelSnapshot\Storage\FileStorage::save">save</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#31"><abbr title="Grazulex\LaravelSnapshot\Storage\FileStorage::load">load</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#47"><abbr title="Grazulex\LaravelSnapshot\Storage\FileStorage::list">list</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#70"><abbr title="Grazulex\LaravelSnapshot\Storage\FileStorage::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#84"><abbr title="Grazulex\LaravelSnapshot\Storage\FileStorage::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#107"><abbr title="Grazulex\LaravelSnapshot\Storage\FileStorage::getFilePath">getFilePath</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#115"><abbr title="Grazulex\LaravelSnapshot\Storage\FileStorage::ensureDirectoryExists">ensureDirectoryExists</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Support/TemplateRenderer.php.html#21"><abbr title="Grazulex\LaravelSnapshot\Support\TemplateRenderer::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Support/TemplateRenderer.php.html#37"><abbr title="Grazulex\LaravelSnapshot\Support\TemplateRenderer::renderMultiple">renderMultiple</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Support/TemplateRenderer.php.html#92"><abbr title="Grazulex\LaravelSnapshot\Support\TemplateRenderer::replaceTokens">replaceTokens</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Support/TemplateRenderer.php.html#105"><abbr title="Grazulex\LaravelSnapshot\Support\TemplateRenderer::normalizeToken">normalizeToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#21"><abbr title="Grazulex\LaravelSnapshot\Traits\HasSnapshots::snapshots">snapshots</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#31"><abbr title="Grazulex\LaravelSnapshot\Traits\HasSnapshots::snapshot">snapshot</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#39"><abbr title="Grazulex\LaravelSnapshot\Traits\HasSnapshots::getSnapshotTimeline">getSnapshotTimeline</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#59"><abbr title="Grazulex\LaravelSnapshot\Traits\HasSnapshots::getHistoryReport">getHistoryReport</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#69"><abbr title="Grazulex\LaravelSnapshot\Traits\HasSnapshots::getLatestSnapshot">getLatestSnapshot</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#79"><abbr title="Grazulex\LaravelSnapshot\Traits\HasSnapshots::compareWithSnapshot">compareWithSnapshot</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#97"><abbr title="Grazulex\LaravelSnapshot\Traits\HasSnapshots::restoreFromSnapshot">restoreFromSnapshot</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#119"><abbr title="Grazulex\LaravelSnapshot\Traits\HasSnapshots::bootHasSnapshots">bootHasSnapshots</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Storage/ArrayStorage.php.html#59"><abbr title="Grazulex\LaravelSnapshot\Storage\ArrayStorage::delete">delete</abbr></a></td><td class="text-right">75%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Console/Commands/DiffSnapshotCommand.php.html#17"><abbr title="Grazulex\LaravelSnapshot\Console\Commands\DiffSnapshotCommand::handle">handle</abbr></a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#84"><abbr title="Grazulex\LaravelSnapshot\Storage\FileStorage::clear">clear</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Console/Commands/GenerateReportCommand.php.html#17"><abbr title="Grazulex\LaravelSnapshot\Console\Commands\GenerateReportCommand::handle">handle</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#113"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::applyPeriodFilter">applyPeriodFilter</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Console/Commands/ListSnapshotsCommand.php.html#17"><abbr title="Grazulex\LaravelSnapshot\Console\Commands\ListSnapshotsCommand::handle">handle</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Snapshot.php.html#134"><abbr title="Grazulex\LaravelSnapshot\Snapshot::serializeModel">serializeModel</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Snapshot.php.html#171"><abbr title="Grazulex\LaravelSnapshot\Snapshot::calculateDiff">calculateDiff</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Snapshot.php.html#204"><abbr title="Grazulex\LaravelSnapshot\Snapshot::getStorage">getStorage</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#119"><abbr title="Grazulex\LaravelSnapshot\Traits\HasSnapshots::bootHasSnapshots">bootHasSnapshots</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Console/Commands/SaveSnapshotCommand.php.html#17"><abbr title="Grazulex\LaravelSnapshot\Console\Commands\SaveSnapshotCommand::handle">handle</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#79"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::generate">generate</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Console/Commands/SnapshotListCommand.php.html#30"><abbr title="Grazulex\LaravelSnapshot\Console\Commands\SnapshotListCommand::handle">handle</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Storage/DatabaseStorage.php.html#62"><abbr title="Grazulex\LaravelSnapshot\Storage\DatabaseStorage::clear">clear</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Support/TemplateRenderer.php.html#37"><abbr title="Grazulex\LaravelSnapshot\Support\TemplateRenderer::renderMultiple">renderMultiple</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#128"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::generateHtmlReport">generateHtmlReport</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Snapshot.php.html#58"><abbr title="Grazulex\LaravelSnapshot\Snapshot::diff">diff</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Snapshot.php.html#254"><abbr title="Grazulex\LaravelSnapshot\Snapshot::generateAutoLabel">generateAutoLabel</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Snapshot.php.html#265"><abbr title="Grazulex\LaravelSnapshot\Snapshot::generateScheduledLabel">generateScheduledLabel</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#97"><abbr title="Grazulex\LaravelSnapshot\Traits\HasSnapshots::restoreFromSnapshot">restoreFromSnapshot</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="LaravelSnapshotServiceProvider.php.html#14"><abbr title="Grazulex\LaravelSnapshot\LaravelSnapshotServiceProvider::boot">boot</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#94"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::getSnapshots">getSnapshots</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#185"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::generateDiffContent">generateDiffContent</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Reports/SnapshotReport.php.html#214"><abbr title="Grazulex\LaravelSnapshot\Reports\SnapshotReport::generateCsvReport">generateCsvReport</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Snapshot.php.html#109"><abbr title="Grazulex\LaravelSnapshot\Snapshot::timeline">timeline</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Snapshot.php.html#223"><abbr title="Grazulex\LaravelSnapshot\Snapshot::createSnapshot">createSnapshot</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="SnapshotStats.php.html#24"><abbr title="Grazulex\LaravelSnapshot\SnapshotStats::counters">counters</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="SnapshotStats.php.html#57"><abbr title="Grazulex\LaravelSnapshot\SnapshotStats::changeFrequency">changeFrequency</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Storage/DatabaseStorage.php.html#24"><abbr title="Grazulex\LaravelSnapshot\Storage\DatabaseStorage::load">load</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#31"><abbr title="Grazulex\LaravelSnapshot\Storage\FileStorage::load">load</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#47"><abbr title="Grazulex\LaravelSnapshot\Storage\FileStorage::list">list</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#70"><abbr title="Grazulex\LaravelSnapshot\Storage\FileStorage::delete">delete</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Storage/FileStorage.php.html#115"><abbr title="Grazulex\LaravelSnapshot\Storage\FileStorage::ensureDirectoryExists">ensureDirectoryExists</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Support/TemplateRenderer.php.html#21"><abbr title="Grazulex\LaravelSnapshot\Support\TemplateRenderer::render">render</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Support/TemplateRenderer.php.html#92"><abbr title="Grazulex\LaravelSnapshot\Support\TemplateRenderer::replaceTokens">replaceTokens</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#69"><abbr title="Grazulex\LaravelSnapshot\Traits\HasSnapshots::getLatestSnapshot">getLatestSnapshot</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Traits/HasSnapshots.php.html#79"><abbr title="Grazulex\LaravelSnapshot\Traits\HasSnapshots::compareWithSnapshot">compareWithSnapshot</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Storage/ArrayStorage.php.html#59"><abbr title="Grazulex\LaravelSnapshot\Storage\ArrayStorage::delete">delete</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.10</a> using <a href="https://www.php.net/" target="_top">PHP 8.4.10</a> and <a href="https://phpunit.de/">PHPUnit 11.5.15</a> at Sat Jul 19 10:34:08 UTC 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js?v=11.0.10" type="text/javascript"></script>
+  <script src="_js/d3.min.js?v=11.0.10" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js?v=11.0.10" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([12,1,0,0,1,0,1,0,0,0,1,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([78,0,0,0,0,0,0,0,1,0,0,14], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,12,"<a href=\"Console\/Commands\/DiffSnapshotCommand.php.html#11\">Grazulex\\LaravelSnapshot\\Console\\Commands\\DiffSnapshotCommand<\/a>"],[0,7,"<a href=\"Console\/Commands\/GenerateReportCommand.php.html#11\">Grazulex\\LaravelSnapshot\\Console\\Commands\\GenerateReportCommand<\/a>"],[0,6,"<a href=\"Console\/Commands\/ListSnapshotsCommand.php.html#11\">Grazulex\\LaravelSnapshot\\Console\\Commands\\ListSnapshotsCommand<\/a>"],[0,5,"<a href=\"Console\/Commands\/SaveSnapshotCommand.php.html#11\">Grazulex\\LaravelSnapshot\\Console\\Commands\\SaveSnapshotCommand<\/a>"],[0,6,"<a href=\"Console\/Commands\/SnapshotListCommand.php.html#11\">Grazulex\\LaravelSnapshot\\Console\\Commands\\SnapshotListCommand<\/a>"],[0,3,"<a href=\"LaravelSnapshotServiceProvider.php.html#9\">Grazulex\\LaravelSnapshot\\LaravelSnapshotServiceProvider<\/a>"],[0,5,"<a href=\"Models\/ModelSnapshot.php.html#21\">Grazulex\\LaravelSnapshot\\Models\\ModelSnapshot<\/a>"],[0,28,"<a href=\"Reports\/SnapshotReport.php.html#12\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport<\/a>"],[0,40,"<a href=\"Snapshot.php.html#15\">Grazulex\\LaravelSnapshot\\Snapshot<\/a>"],[50,8,"<a href=\"SnapshotManager.php.html#10\">Grazulex\\LaravelSnapshot\\SnapshotManager<\/a>"],[3.8461538461538463,8,"<a href=\"SnapshotStats.php.html#10\">Grazulex\\LaravelSnapshot\\SnapshotStats<\/a>"],[96.55172413793103,11,"<a href=\"Storage\/ArrayStorage.php.html#7\">Grazulex\\LaravelSnapshot\\Storage\\ArrayStorage<\/a>"],[0,9,"<a href=\"Storage\/DatabaseStorage.php.html#9\">Grazulex\\LaravelSnapshot\\Storage\\DatabaseStorage<\/a>"],[0,20,"<a href=\"Storage\/FileStorage.php.html#7\">Grazulex\\LaravelSnapshot\\Storage\\FileStorage<\/a>"],[35.714285714285715,15,"<a href=\"Support\/TemplateRenderer.php.html#9\">Grazulex\\LaravelSnapshot\\Support\\TemplateRenderer<\/a>"],[0,17,"<a href=\"Traits\/HasSnapshots.php.html#16\">Grazulex\\LaravelSnapshot\\Traits\\HasSnapshots<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,12,"<a href=\"Console\/Commands\/DiffSnapshotCommand.php.html#17\">Grazulex\\LaravelSnapshot\\Console\\Commands\\DiffSnapshotCommand::handle<\/a>"],[0,7,"<a href=\"Console\/Commands\/GenerateReportCommand.php.html#17\">Grazulex\\LaravelSnapshot\\Console\\Commands\\GenerateReportCommand::handle<\/a>"],[0,6,"<a href=\"Console\/Commands\/ListSnapshotsCommand.php.html#17\">Grazulex\\LaravelSnapshot\\Console\\Commands\\ListSnapshotsCommand::handle<\/a>"],[0,5,"<a href=\"Console\/Commands\/SaveSnapshotCommand.php.html#17\">Grazulex\\LaravelSnapshot\\Console\\Commands\\SaveSnapshotCommand::handle<\/a>"],[0,1,"<a href=\"Console\/Commands\/SnapshotListCommand.php.html#19\">Grazulex\\LaravelSnapshot\\Console\\Commands\\SnapshotListCommand::__construct<\/a>"],[0,1,"<a href=\"Console\/Commands\/SnapshotListCommand.php.html#25\">Grazulex\\LaravelSnapshot\\Console\\Commands\\SnapshotListCommand::setStorage<\/a>"],[0,4,"<a href=\"Console\/Commands\/SnapshotListCommand.php.html#30\">Grazulex\\LaravelSnapshot\\Console\\Commands\\SnapshotListCommand::handle<\/a>"],[0,2,"<a href=\"LaravelSnapshotServiceProvider.php.html#14\">Grazulex\\LaravelSnapshot\\LaravelSnapshotServiceProvider::boot<\/a>"],[0,1,"<a href=\"LaravelSnapshotServiceProvider.php.html#37\">Grazulex\\LaravelSnapshot\\LaravelSnapshotServiceProvider::register<\/a>"],[0,1,"<a href=\"Models\/ModelSnapshot.php.html#42\">Grazulex\\LaravelSnapshot\\Models\\ModelSnapshot::snapshotable<\/a>"],[0,1,"<a href=\"Models\/ModelSnapshot.php.html#50\">Grazulex\\LaravelSnapshot\\Models\\ModelSnapshot::getModelTypeAttribute<\/a>"],[0,1,"<a href=\"Models\/ModelSnapshot.php.html#58\">Grazulex\\LaravelSnapshot\\Models\\ModelSnapshot::scopeForModel<\/a>"],[0,1,"<a href=\"Models\/ModelSnapshot.php.html#66\">Grazulex\\LaravelSnapshot\\Models\\ModelSnapshot::scopeForEvent<\/a>"],[0,1,"<a href=\"Models\/ModelSnapshot.php.html#74\">Grazulex\\LaravelSnapshot\\Models\\ModelSnapshot::scopeWithLabel<\/a>"],[0,1,"<a href=\"Reports\/SnapshotReport.php.html#22\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport::__construct<\/a>"],[0,1,"<a href=\"Reports\/SnapshotReport.php.html#31\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport::for<\/a>"],[0,1,"<a href=\"Reports\/SnapshotReport.php.html#39\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport::format<\/a>"],[0,1,"<a href=\"Reports\/SnapshotReport.php.html#49\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport::options<\/a>"],[0,1,"<a href=\"Reports\/SnapshotReport.php.html#59\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport::withDiffs<\/a>"],[0,1,"<a href=\"Reports\/SnapshotReport.php.html#69\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport::period<\/a>"],[0,5,"<a href=\"Reports\/SnapshotReport.php.html#79\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport::generate<\/a>"],[0,2,"<a href=\"Reports\/SnapshotReport.php.html#94\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport::getSnapshots<\/a>"],[0,7,"<a href=\"Reports\/SnapshotReport.php.html#113\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport::applyPeriodFilter<\/a>"],[0,3,"<a href=\"Reports\/SnapshotReport.php.html#128\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport::generateHtmlReport<\/a>"],[0,2,"<a href=\"Reports\/SnapshotReport.php.html#185\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport::generateDiffContent<\/a>"],[0,1,"<a href=\"Reports\/SnapshotReport.php.html#198\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport::generateJsonReport<\/a>"],[0,2,"<a href=\"Reports\/SnapshotReport.php.html#214\">Grazulex\\LaravelSnapshot\\Reports\\SnapshotReport::generateCsvReport<\/a>"],[0,1,"<a href=\"Snapshot.php.html#22\">Grazulex\\LaravelSnapshot\\Snapshot::save<\/a>"],[0,1,"<a href=\"Snapshot.php.html#30\">Grazulex\\LaravelSnapshot\\Snapshot::auto<\/a>"],[0,1,"<a href=\"Snapshot.php.html#40\">Grazulex\\LaravelSnapshot\\Snapshot::scheduled<\/a>"],[0,1,"<a href=\"Snapshot.php.html#50\">Grazulex\\LaravelSnapshot\\Snapshot::load<\/a>"],[0,3,"<a href=\"Snapshot.php.html#58\">Grazulex\\LaravelSnapshot\\Snapshot::diff<\/a>"],[0,1,"<a href=\"Snapshot.php.html#77\">Grazulex\\LaravelSnapshot\\Snapshot::list<\/a>"],[0,1,"<a href=\"Snapshot.php.html#85\">Grazulex\\LaravelSnapshot\\Snapshot::delete<\/a>"],[0,1,"<a href=\"Snapshot.php.html#93\">Grazulex\\LaravelSnapshot\\Snapshot::clear<\/a>"],[0,1,"<a href=\"Snapshot.php.html#101\">Grazulex\\LaravelSnapshot\\Snapshot::stats<\/a>"],[0,2,"<a href=\"Snapshot.php.html#109\">Grazulex\\LaravelSnapshot\\Snapshot::timeline<\/a>"],[0,1,"<a href=\"Snapshot.php.html#126\">Grazulex\\LaravelSnapshot\\Snapshot::setStorage<\/a>"],[0,6,"<a href=\"Snapshot.php.html#134\">Grazulex\\LaravelSnapshot\\Snapshot::serializeModel<\/a>"],[0,6,"<a href=\"Snapshot.php.html#171\">Grazulex\\LaravelSnapshot\\Snapshot::calculateDiff<\/a>"],[0,6,"<a href=\"Snapshot.php.html#204\">Grazulex\\LaravelSnapshot\\Snapshot::getStorage<\/a>"],[0,2,"<a href=\"Snapshot.php.html#223\">Grazulex\\LaravelSnapshot\\Snapshot::createSnapshot<\/a>"],[0,3,"<a href=\"Snapshot.php.html#254\">Grazulex\\LaravelSnapshot\\Snapshot::generateAutoLabel<\/a>"],[0,3,"<a href=\"Snapshot.php.html#265\">Grazulex\\LaravelSnapshot\\Snapshot::generateScheduledLabel<\/a>"],[100,1,"<a href=\"SnapshotManager.php.html#14\">Grazulex\\LaravelSnapshot\\SnapshotManager::__construct<\/a>"],[100,1,"<a href=\"SnapshotManager.php.html#19\">Grazulex\\LaravelSnapshot\\SnapshotManager::getStorage<\/a>"],[0,1,"<a href=\"SnapshotManager.php.html#24\">Grazulex\\LaravelSnapshot\\SnapshotManager::setStorage<\/a>"],[100,1,"<a href=\"SnapshotManager.php.html#29\">Grazulex\\LaravelSnapshot\\SnapshotManager::save<\/a>"],[100,1,"<a href=\"SnapshotManager.php.html#34\">Grazulex\\LaravelSnapshot\\SnapshotManager::load<\/a>"],[0,1,"<a href=\"SnapshotManager.php.html#39\">Grazulex\\LaravelSnapshot\\SnapshotManager::list<\/a>"],[0,1,"<a href=\"SnapshotManager.php.html#44\">Grazulex\\LaravelSnapshot\\SnapshotManager::delete<\/a>"],[0,1,"<a href=\"SnapshotManager.php.html#49\">Grazulex\\LaravelSnapshot\\SnapshotManager::clear<\/a>"],[100,1,"<a href=\"SnapshotStats.php.html#16\">Grazulex\\LaravelSnapshot\\SnapshotStats::__construct<\/a>"],[0,2,"<a href=\"SnapshotStats.php.html#24\">Grazulex\\LaravelSnapshot\\SnapshotStats::counters<\/a>"],[0,1,"<a href=\"SnapshotStats.php.html#45\">Grazulex\\LaravelSnapshot\\SnapshotStats::mostChangedFields<\/a>"],[0,2,"<a href=\"SnapshotStats.php.html#57\">Grazulex\\LaravelSnapshot\\SnapshotStats::changeFrequency<\/a>"],[0,1,"<a href=\"SnapshotStats.php.html#79\">Grazulex\\LaravelSnapshot\\SnapshotStats::get<\/a>"],[0,1,"<a href=\"SnapshotStats.php.html#87\">Grazulex\\LaravelSnapshot\\SnapshotStats::toJson<\/a>"],[100,1,"<a href=\"Storage\/ArrayStorage.php.html#14\">Grazulex\\LaravelSnapshot\\Storage\\ArrayStorage::clearAll<\/a>"],[100,1,"<a href=\"Storage\/ArrayStorage.php.html#22\">Grazulex\\LaravelSnapshot\\Storage\\ArrayStorage::save<\/a>"],[100,1,"<a href=\"Storage\/ArrayStorage.php.html#37\">Grazulex\\LaravelSnapshot\\Storage\\ArrayStorage::load<\/a>"],[100,1,"<a href=\"Storage\/ArrayStorage.php.html#45\">Grazulex\\LaravelSnapshot\\Storage\\ArrayStorage::list<\/a>"],[75,2,"<a href=\"Storage\/ArrayStorage.php.html#59\">Grazulex\\LaravelSnapshot\\Storage\\ArrayStorage::delete<\/a>"],[100,5,"<a href=\"Storage\/ArrayStorage.php.html#73\">Grazulex\\LaravelSnapshot\\Storage\\ArrayStorage::clear<\/a>"],[0,1,"<a href=\"Storage\/DatabaseStorage.php.html#14\">Grazulex\\LaravelSnapshot\\Storage\\DatabaseStorage::save<\/a>"],[0,2,"<a href=\"Storage\/DatabaseStorage.php.html#24\">Grazulex\\LaravelSnapshot\\Storage\\DatabaseStorage::load<\/a>"],[0,1,"<a href=\"Storage\/DatabaseStorage.php.html#34\">Grazulex\\LaravelSnapshot\\Storage\\DatabaseStorage::list<\/a>"],[0,1,"<a href=\"Storage\/DatabaseStorage.php.html#54\">Grazulex\\LaravelSnapshot\\Storage\\DatabaseStorage::delete<\/a>"],[0,4,"<a href=\"Storage\/DatabaseStorage.php.html#62\">Grazulex\\LaravelSnapshot\\Storage\\DatabaseStorage::clear<\/a>"],[0,1,"<a href=\"Storage\/FileStorage.php.html#11\">Grazulex\\LaravelSnapshot\\Storage\\FileStorage::__construct<\/a>"],[0,1,"<a href=\"Storage\/FileStorage.php.html#20\">Grazulex\\LaravelSnapshot\\Storage\\FileStorage::save<\/a>"],[0,2,"<a href=\"Storage\/FileStorage.php.html#31\">Grazulex\\LaravelSnapshot\\Storage\\FileStorage::load<\/a>"],[0,2,"<a href=\"Storage\/FileStorage.php.html#47\">Grazulex\\LaravelSnapshot\\Storage\\FileStorage::list<\/a>"],[0,2,"<a href=\"Storage\/FileStorage.php.html#70\">Grazulex\\LaravelSnapshot\\Storage\\FileStorage::delete<\/a>"],[0,9,"<a href=\"Storage\/FileStorage.php.html#84\">Grazulex\\LaravelSnapshot\\Storage\\FileStorage::clear<\/a>"],[0,1,"<a href=\"Storage\/FileStorage.php.html#107\">Grazulex\\LaravelSnapshot\\Storage\\FileStorage::getFilePath<\/a>"],[0,2,"<a href=\"Storage\/FileStorage.php.html#115\">Grazulex\\LaravelSnapshot\\Storage\\FileStorage::ensureDirectoryExists<\/a>"],[100,1,"<a href=\"Support\/TemplateRenderer.php.html#13\">Grazulex\\LaravelSnapshot\\Support\\TemplateRenderer::__construct<\/a>"],[0,2,"<a href=\"Support\/TemplateRenderer.php.html#21\">Grazulex\\LaravelSnapshot\\Support\\TemplateRenderer::render<\/a>"],[0,4,"<a href=\"Support\/TemplateRenderer.php.html#37\">Grazulex\\LaravelSnapshot\\Support\\TemplateRenderer::renderMultiple<\/a>"],[100,2,"<a href=\"Support\/TemplateRenderer.php.html#57\">Grazulex\\LaravelSnapshot\\Support\\TemplateRenderer::getAvailableTemplates<\/a>"],[100,1,"<a href=\"Support\/TemplateRenderer.php.html#72\">Grazulex\\LaravelSnapshot\\Support\\TemplateRenderer::templateExists<\/a>"],[100,2,"<a href=\"Support\/TemplateRenderer.php.html#80\">Grazulex\\LaravelSnapshot\\Support\\TemplateRenderer::getTemplatePath<\/a>"],[0,2,"<a href=\"Support\/TemplateRenderer.php.html#92\">Grazulex\\LaravelSnapshot\\Support\\TemplateRenderer::replaceTokens<\/a>"],[0,1,"<a href=\"Support\/TemplateRenderer.php.html#105\">Grazulex\\LaravelSnapshot\\Support\\TemplateRenderer::normalizeToken<\/a>"],[0,1,"<a href=\"Traits\/HasSnapshots.php.html#21\">Grazulex\\LaravelSnapshot\\Traits\\HasSnapshots::snapshots<\/a>"],[0,1,"<a href=\"Traits\/HasSnapshots.php.html#31\">Grazulex\\LaravelSnapshot\\Traits\\HasSnapshots::snapshot<\/a>"],[0,1,"<a href=\"Traits\/HasSnapshots.php.html#39\">Grazulex\\LaravelSnapshot\\Traits\\HasSnapshots::getSnapshotTimeline<\/a>"],[0,1,"<a href=\"Traits\/HasSnapshots.php.html#59\">Grazulex\\LaravelSnapshot\\Traits\\HasSnapshots::getHistoryReport<\/a>"],[0,2,"<a href=\"Traits\/HasSnapshots.php.html#69\">Grazulex\\LaravelSnapshot\\Traits\\HasSnapshots::getLatestSnapshot<\/a>"],[0,2,"<a href=\"Traits\/HasSnapshots.php.html#79\">Grazulex\\LaravelSnapshot\\Traits\\HasSnapshots::compareWithSnapshot<\/a>"],[0,3,"<a href=\"Traits\/HasSnapshots.php.html#97\">Grazulex\\LaravelSnapshot\\Traits\\HasSnapshots::restoreFromSnapshot<\/a>"],[0,6,"<a href=\"Traits\/HasSnapshots.php.html#119\">Grazulex\\LaravelSnapshot\\Traits\\HasSnapshots::bootHasSnapshots<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

@@ -9,7 +9,9 @@
   [![License](https://img.shields.io/github/license/grazulex/laravel-snapshot)](LICENSE.md)
   [![PHP Version](https://img.shields.io/badge/php-%5E8.3-blue)](https://php.net)
   [![Laravel Version](https://img.shields.io/badge/laravel-%5E12.19-red)](https://laravel.com)
+  [![Tests](https://github.com/Grazulex/laravel-snapshot/workflows/Tests/badge.svg)](https://github.com/Grazulex/laravel-snapshot/actions)
   [![Code Style](https://img.shields.io/badge/code%20style-pint-orange)](https://github.com/laravel/pint)
+
 </div>
 
 > [!WARNING]
@@ -25,13 +27,16 @@
 
 ## ✨ Features
 
-- 📸 Store snapshots of any model or model group
-- 🔁 Compare before/after snapshots
-- 📂 Store as JSON, array, file or DB
-- 🧪 Perfect for testing or debugging changes
-- ✅ Full CLI support for snapshot creation and diff
-- 🧠 Smart serialization of relationships, casts, hidden fields
-- 📦 Optional database table for persistent storage
+- 📸 **Manual snapshots** - Capture model state on demand
+- 🔄 **Automatic snapshots** - Auto-capture on create/update/delete events  
+- ⏰ **Scheduled snapshots** - Cron-based periodic snapshots
+- � **Smart comparison** - Deep diff between any two snapshots
+- 📂 **Multiple storage** - File, database, or memory storage
+- 📊 **Rich reports** - Timeline, history, and analytics
+- 🎯 **Model tracking** - Full audit trail for any Eloquent model
+- 🧪 **Testing support** - Perfect for debugging and testing
+- ✅ **CLI commands** - Full command-line interface
+- 🧠 **Smart serialization** - Handles relationships, casts, hidden fields
 
 ## � Installation
 
@@ -47,20 +52,65 @@ Publish the configuration file:
 php artisan vendor:publish --tag=snapshot-config
 ```
 
-## �🛠 Usage Example
+Run the migration to create the snapshots table:
 
+```bash
+php artisan migrate
+```
+
+## 🛠 Usage Examples
+
+### Manual Snapshots
 ```php
-use LaravelSnapshot\Snapshot;
+use Grazulex\LaravelSnapshot\Snapshot;
 
+// Basic snapshot
 Snapshot::save($order, 'before-discount');
 Snapshot::save($order->fresh(), 'after-discount');
 
+// Compare snapshots
 $diff = Snapshot::diff('before-discount', 'after-discount');
-
 dd($diff);
 ```
 
+### Automatic Snapshots
+```php
+use Grazulex\LaravelSnapshot\Traits\HasSnapshots;
+
+class Order extends Model
+{
+    use HasSnapshots;
+    
+    // Auto-snapshot on create, update, delete
+    // Configure in config/snapshot.php
+}
+```
+
+### Model History & Reports
+```php
+// Get model timeline
+$timeline = $order->getSnapshotTimeline();
+
+// Generate history report
+$report = $order->getHistoryReport('html');
+
+// Get change statistics
+$stats = Snapshot::stats($order)
+    ->counters()
+    ->mostChangedFields()
+    ->changeFrequency()
+    ->get();
+```
+
 ## 📦 CLI Commands
+
+### Basic Commands
+```bash
+# Manual snapshots  
+php artisan snapshot:save "App\Models\Order" --id=123 --label=before-shipping
+php artisan snapshot:diff before-shipping after-shipping
+php artisan snapshot:list
+```
 
 ```bash
 php artisan snapshot:save order:123 --label=before-shipping

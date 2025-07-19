@@ -71,6 +71,9 @@
     },
     "scripts": {
         "test": [
+            "./vendor/bin/phpunit tests/SimpleStorageTest.php tests/TemplateRendererStandaloneTest.php tests/AdditionalClassesTest.php --coverage-text --coverage-html=coverage"
+        ],
+        "test-pest": [
             "./vendor/bin/pest --colors=always --coverage"
         ],
         "pint": [

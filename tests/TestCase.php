@@ -5,49 +5,28 @@ declare(strict_types=1);
 namespace Tests;
 
 use Grazulex\LaravelSnapshot\LaravelSnapshotServiceProvider;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
-    protected string $fakeAppPath;
-
     protected function setUp(): void
     {
         parent::setUp();
 
-        // Execute migration
+        // Run the package migration
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->artisan('migrate', ['--database' => 'testing']);
     }
 
-    protected function tearDown(): void
+    final public function getEnvironmentSetUp($app): void
     {
-        File::deleteDirectory($this->fakeAppPath);
-        parent::tearDown();
+        config()->set('database.default', 'testing');
+
+        $migration = include __DIR__.'/../database/migrations/2025_01_19_000000_create_snapshots_table.php';
+        $migration->up();
     }
 
-    final public function debugToFile(string $content, string $context = ''): void
-    {
-        $file = base_path('snapshot_test.log');
-        $tag = $context ? "=== $context ===\n" : '';
-        File::append($file, $tag.$content."\n");
-    }
-
-    protected function getEnvironmentSetUp($app): void
-    {
-        $token = getenv('TEST_TOKEN') ?: (string) Str::uuid();
-        $this->fakeAppPath = sys_get_temp_dir()."/fake-app-{$token}";
-        File::ensureDirectoryExists($this->fakeAppPath);
-
-        $app->useAppPath($this->fakeAppPath);
-
-        // ✅ Corrige le base_path
-        $app->bind('path.base', fn () => dirname(__DIR__));
-
-    }
-
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             LaravelSnapshotServiceProvider::class,
