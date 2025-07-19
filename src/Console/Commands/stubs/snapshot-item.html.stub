@@ -1,0 +1,11 @@
+<div class='snapshot {{EVENT_CLASS}}'>
+    <div class='snapshot-header'>
+        {{SNAPSHOT_LABEL}}
+        <span class='event-badge badge-{{EVENT_TYPE}}'>{{EVENT_TYPE}}</span>
+    </div>
+    <div class='metadata'>
+        <div class='metadata-item'><strong>Event:</strong> {{EVENT_TYPE}}</div>
+        <div class='metadata-item'><strong>Date:</strong> {{CREATED_AT}}</div>
+        {{DIFF_CONTENT}}
+    </div>
+</div>

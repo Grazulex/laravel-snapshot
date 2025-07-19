@@ -65,5 +65,58 @@ return [
     'retention' => [
         'enabled' => true,
         'days' => 30,
+        'auto_cleanup' => true,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Automatic Snapshots
+    |--------------------------------------------------------------------------
+    |
+    | Configure automatic snapshot creation on model events
+    |
+    */
+    'automatic' => [
+        'enabled' => false,
+        'events' => ['created', 'updated', 'deleted'],
+        'exclude_fields' => ['updated_at', 'created_at', 'password', 'remember_token'],
+        'models' => [
+            // 'App\Models\User' => ['created', 'updated'],
+            // 'App\Models\Order' => ['created', 'updated', 'deleted'],
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Scheduled Snapshots
+    |--------------------------------------------------------------------------
+    |
+    | Configure scheduled snapshot creation via cron
+    |
+    */
+    'scheduled' => [
+        'enabled' => false,
+        'default_frequency' => 'daily',
+        'models' => [
+            // 'App\Models\User' => 'daily',
+            // 'App\Models\Order' => 'hourly',
+            // 'App\Models\Invoice' => 'weekly',
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reports & Analytics
+    |--------------------------------------------------------------------------
+    |
+    | Configure snapshot reporting and analytics features
+    |
+    */
+    'reports' => [
+        'enabled' => true,
+        'formats' => ['html', 'json', 'csv'],
+        'template' => 'default',
+        'max_timeline_entries' => 100,
+        'include_diffs' => true,
     ],
 ];

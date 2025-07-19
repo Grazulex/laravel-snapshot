@@ -23,7 +23,10 @@ final class LaravelSnapshotServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                //
+                Console\Commands\SaveSnapshotCommand::class,
+                Console\Commands\DiffSnapshotCommand::class,
+                Console\Commands\ListSnapshotsCommand::class,
+                Console\Commands\GenerateReportCommand::class,
             ]);
         }
     }

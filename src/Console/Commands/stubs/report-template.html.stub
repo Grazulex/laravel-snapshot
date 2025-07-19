@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snapshot Report - {{MODEL_CLASS}}#{{MODEL_ID}}</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            margin: 20px; 
+            background: #f8f9fa;
+        }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { border-bottom: 2px solid #e9ecef; padding-bottom: 20px; margin-bottom: 30px; }
+        .header h1 { margin: 0 0 15px 0; color: #212529; }
+        .meta-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0; }
+        .meta-item { background: #f8f9fa; padding: 15px; border-radius: 6px; border-left: 4px solid #007bff; }
+        .meta-label { font-weight: 600; color: #495057; font-size: 0.9em; }
+        .meta-value { color: #212529; font-size: 1.1em; }
+        
+        .snapshot { 
+            border: 1px solid #dee2e6; 
+            margin: 15px 0; 
+            padding: 20px; 
+            border-radius: 8px; 
+            background: #fff;
+            transition: box-shadow 0.2s ease;
+        }
+        .snapshot:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .snapshot-header { 
+            font-weight: 600; 
+            color: #212529; 
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .event-created { border-left: 4px solid #28a745; }
+        .event-updated { border-left: 4px solid #ffc107; }
+        .event-deleted { border-left: 4px solid #dc3545; }
+        .event-manual { border-left: 4px solid #007bff; }
+        .event-scheduled { border-left: 4px solid #6f42c1; }
+        
+        .event-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        .badge-created { background: #d4edda; color: #155724; }
+        .badge-updated { background: #fff3cd; color: #856404; }
+        .badge-deleted { background: #f8d7da; color: #721c24; }
+        .badge-manual { background: #cce5ff; color: #004085; }
+        .badge-scheduled { background: #e7d6ff; color: #4a1a5c; }
+        
+        .metadata { 
+            font-size: 0.9em; 
+            color: #6c757d; 
+            margin-top: 15px; 
+            padding-top: 15px;
+            border-top: 1px solid #e9ecef;
+        }
+        .metadata-item { margin: 5px 0; }
+        
+        .no-snapshots { 
+            text-align: center; 
+            padding: 60px 20px; 
+            color: #6c757d; 
+        }
+        .no-snapshots i { font-size: 3em; margin-bottom: 20px; opacity: 0.5; }
+        
+        @media (max-width: 768px) {
+            .container { margin: 10px; padding: 20px; }
+            .meta-info { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1>📸 Snapshot Report</h1>
+            <div class='meta-info'>
+                <div class='meta-item'>
+                    <div class='meta-label'>Model</div>
+                    <div class='meta-value'>{{MODEL_CLASS}}</div>
+                </div>
+                <div class='meta-item'>
+                    <div class='meta-label'>ID</div>
+                    <div class='meta-value'>{{MODEL_ID}}</div>
+                </div>
+                <div class='meta-item'>
+                    <div class='meta-label'>Generated</div>
+                    <div class='meta-value'>{{GENERATED_AT}}</div>
+                </div>
+                <div class='meta-item'>
+                    <div class='meta-label'>Total Snapshots</div>
+                    <div class='meta-value'>{{TOTAL_SNAPSHOTS}}</div>
+                </div>
+            </div>
+        </div>
+        
+        {{SNAPSHOTS_CONTENT}}
+    </div>
+</body>
+</html>
