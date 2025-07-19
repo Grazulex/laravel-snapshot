@@ -12,6 +12,9 @@
   [![Code Style](https://img.shields.io/badge/code%20style-pint-orange)](https://github.com/laravel/pint)
 </div>
 
+> [!WARNING]
+> **🚧 Package en construction** - Ce package est actuellement en développement et n'est pas encore prêt pour la production. L'API peut changer sans préavis.
+
 ## Overview
 
 <div style="background: linear-gradient(135deg, #FF9900 0%, #D2D200 25%, #88C600 75%, #00B470 100%); padding: 20px; border-radius: 10px; margin: 20px 0; color: #ffffff; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
