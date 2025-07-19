@@ -33,7 +33,21 @@
 - 🧠 Smart serialization of relationships, casts, hidden fields
 - 📦 Optional database table for persistent storage
 
-## 🛠 Usage Example
+## � Installation
+
+Install the package via Composer:
+
+```bash
+composer require grazulex/laravel-snapshot
+```
+
+Publish the configuration file:
+
+```bash
+php artisan vendor:publish --tag=snapshot-config
+```
+
+## �🛠 Usage Example
 
 ```php
 use LaravelSnapshot\Snapshot;

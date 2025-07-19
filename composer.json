@@ -10,10 +10,10 @@
         "audit",
         "tracking",
         "state-capture",
-        "testing",
-        "debugging",
         "eloquent",
-        "serialization"
+        "serialization",
+        "backup",
+        "versioning"
     ],
     "type": "library",
     "homepage": "https://github.com/grazulex/laravel-snapshot",
@@ -32,6 +32,9 @@
         "rector/rector": "^2.0",
         "doctrine/dbal": "^4.2",
         "orchestra/testbench": "^10.0"
+    },
+    "suggest": {
+        "doctrine/dbal": "Required for database snapshot storage when using non-MySQL databases"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
