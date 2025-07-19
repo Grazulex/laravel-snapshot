@@ -13,7 +13,7 @@
 </div>
 
 > [!WARNING]
-> **🚧 Package en construction** - Ce package est actuellement en développement et n'est pas encore prêt pour la production. L'API peut changer sans préavis.
+> **🚧 Work in Progress** - This package is currently under development and is not yet ready for production use. The API may change without notice.
 
 ## Overview
 
