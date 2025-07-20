@@ -435,16 +435,55 @@ Schema::table('snapshots', function (Blueprint $table) {
 
 ### Database to File
 
-```bash
-# Export all snapshots to files
-php artisan snapshot:export --format=file --output=storage/snapshots/
+```php
+// Manual migration script - run in php artisan tinker or custom command
+use Grazulex\LaravelSnapshot\Storage\FileStorage;
+use Grazulex\LaravelSnapshot\Storage\DatabaseStorage;
+use Grazulex\LaravelSnapshot\Models\ModelSnapshot;
+
+$fileStorage = new FileStorage(storage_path('snapshots'));
+
+// Export all database snapshots to files
+$snapshots = ModelSnapshot::all();
+foreach ($snapshots as $snapshot) {
+    $data = [
+        'class' => $snapshot->model_type,
+        'attributes' => $snapshot->data['attributes'] ?? $snapshot->data,
+        'timestamp' => $snapshot->created_at->toISOString(),
+        'event_type' => $snapshot->event_type,
+        'metadata' => $snapshot->metadata,
+    ];
+    
+    $fileStorage->save($snapshot->label, $data);
+}
+
+echo "Exported " . $snapshots->count() . " snapshots to files\n";
 ```
 
 ### File to Database
 
-```bash
-# Import all snapshot files to database
-php artisan snapshot:import --from=storage/snapshots/ --to=database
+```php
+// Manual migration script
+use Grazulex\LaravelSnapshot\Storage\FileStorage;
+use Grazulex\LaravelSnapshot\Snapshot;
+
+// Change config to use database storage temporarily
+config(['snapshot.default' => 'database']);
+
+$fileStorage = new FileStorage(storage_path('snapshots'));
+$snapshots = $fileStorage->list();
+
+foreach ($snapshots as $label => $data) {
+    // Reconstruct model if possible and save
+    if (isset($data['class']) && class_exists($data['class'])) {
+        $modelClass = $data['class'];
+        // This is a simplified approach - you may need more complex logic
+        // depending on your specific data structure
+        Snapshot::save($data, $label);
+    }
+}
+
+echo "Imported " . count($snapshots) . " snapshots to database\n";
 ```
 
 ### Manual Migration
