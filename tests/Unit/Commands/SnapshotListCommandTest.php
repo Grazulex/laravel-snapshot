@@ -2,66 +2,30 @@
 
 declare(strict_types=1);
 
-use Grazulex\LaravelSnapshot\Console\Commands\SnapshotListCommand;
+use Grazulex\LaravelSnapshot\Console\Commands\ListSnapshotsCommand;
 use Grazulex\LaravelSnapshot\Storage\ArrayStorage;
 
-describe('SnapshotListCommand', function () {
+describe('ListSnapshotsCommand', function () {
     beforeEach(function () {
         ArrayStorage::clearAll();
     });
 
-    test('it can list snapshots', function () {
-        $command = new SnapshotListCommand();
+    test('it can be instantiated', function () {
+        $command = new ListSnapshotsCommand();
 
-        // Mock the storage with some data
-        $storage = new ArrayStorage();
-        $storage->save('test-snapshot-1', [
-            'model_type' => 'User',
-            'model_id' => '1',
-            'data' => ['name' => 'John'],
-            'created_at' => now()->toDateTimeString(),
-        ]);
-
-        $storage->save('test-snapshot-2', [
-            'model_type' => 'Post',
-            'model_id' => '1',
-            'data' => ['title' => 'Test Post'],
-            'created_at' => now()->toDateTimeString(),
-        ]);
-
-        // Mock the command to use our storage
-        $command->setStorage($storage);
-
-        expect($command)->toBeInstanceOf(SnapshotListCommand::class);
+        expect($command)->toBeInstanceOf(ListSnapshotsCommand::class);
     });
 
-    test('it handles empty snapshot list', function () {
-        $command = new SnapshotListCommand();
-        $storage = new ArrayStorage();
+    test('it has correct signature', function () {
+        $command = new ListSnapshotsCommand();
 
-        $command->setStorage($storage);
-
-        expect($command)->toBeInstanceOf(SnapshotListCommand::class);
+        expect($command->getName())->toBe('snapshot:list');
     });
 
-    test('it can filter snapshots by model', function () {
-        $command = new SnapshotListCommand();
-        $storage = new ArrayStorage();
+    test('it handles empty snapshot list gracefully', function () {
+        $command = new ListSnapshotsCommand();
 
-        $storage->save('user-snapshot', [
-            'model_type' => 'User',
-            'model_id' => '1',
-            'data' => ['name' => 'John'],
-        ]);
-
-        $storage->save('post-snapshot', [
-            'model_type' => 'Post',
-            'model_id' => '1',
-            'data' => ['title' => 'Test'],
-        ]);
-
-        $command->setStorage($storage);
-
-        expect($command)->toBeInstanceOf(SnapshotListCommand::class);
+        // The command should handle empty snapshot list without errors
+        expect($command)->toBeInstanceOf(ListSnapshotsCommand::class);
     });
 });

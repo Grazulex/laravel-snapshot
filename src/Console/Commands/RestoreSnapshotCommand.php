@@ -123,8 +123,9 @@ class RestoreSnapshotCommand extends Command
         }
 
         // Confirm restoration unless --force is used
-        if (!$this->option('force') && ! $this->confirm('Are you sure you want to restore the model to this snapshot?')) {
+        if (! $this->option('force') && ! $this->confirm('Are you sure you want to restore the model to this snapshot?')) {
             $this->info('Operation cancelled.');
+
             return self::SUCCESS;
         }
 

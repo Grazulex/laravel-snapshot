@@ -90,8 +90,9 @@ class ClearSnapshotsCommand extends Command
         }
 
         // Confirm deletion unless --force is used
-        if (!$this->option('force') && ! $this->confirm("Are you sure you want to delete {$count} snapshots?")) {
+        if (! $this->option('force') && ! $this->confirm("Are you sure you want to delete {$count} snapshots?")) {
             $this->info('Operation cancelled.');
+
             return self::SUCCESS;
         }
 
