@@ -37,11 +37,11 @@ class Snapshot
     /**
      * Save a scheduled snapshot.
      */
-    public static function scheduled($model, string $frequency): array
+    public static function scheduled($model, ?string $label = null): array
     {
-        $label = self::generateScheduledLabel($model, $frequency);
+        $finalLabel = $label ?? self::generateScheduledLabel($model, 'daily');
 
-        return self::createSnapshot($model, $label, 'scheduled');
+        return self::createSnapshot($model, $finalLabel, 'scheduled');
     }
 
     /**
