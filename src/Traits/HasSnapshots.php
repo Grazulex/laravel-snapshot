@@ -97,12 +97,15 @@ trait HasSnapshots
     /**
      * Restore this model to a previous snapshot state.
      */
-    public function restoreFromSnapshot(string $snapshotId): bool
+    public function restoreFromSnapshot($snapshotId): bool
     {
-        $snapshot = $this->snapshots()->find($snapshotId);
+        $snapshot = $this->snapshots()->where(function ($query) use ($snapshotId): void {
+            $query->where('id', $snapshotId)
+                ->orWhere('label', $snapshotId);
+        })->first();
 
         if (! $snapshot) {
-            throw new InvalidArgumentException("Snapshot with ID {$snapshotId} not found");
+            throw new InvalidArgumentException("Snapshot with ID or label {$snapshotId} not found");
         }
 
         $data = is_string($snapshot->data) ? json_decode($snapshot->data, true) : $snapshot->data;

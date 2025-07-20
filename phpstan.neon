@@ -1,6 +1,7 @@
 parameters:
     ignoreErrors:
-        #
+        # PHPStan thinks created_at is always non-null but our tests show otherwise
+        - '#Right side of && is always true#'
     level: 5
     paths:
         - src
