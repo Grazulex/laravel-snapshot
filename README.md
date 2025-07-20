@@ -46,6 +46,9 @@ composer require grazulex/laravel-snapshot
 # Publish config (optional)
 php artisan vendor:publish --tag=snapshot-config
 
+# Publish migrations (if using database storage)
+php artisan vendor:publish --tag=snapshot-migrations
+
 # Run migrations
 php artisan migrate
 ```
