@@ -132,7 +132,7 @@ class SnapshotStats
             $this->stats['average_changes_per_day'] = 0;
         }
 
-return $this;
+        return $this;
     }
 
     /**
