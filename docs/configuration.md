@@ -99,7 +99,7 @@ Setup scheduled cleanup in your console kernel:
 // app/Console/Kernel.php
 protected function schedule(Schedule $schedule)
 {
-    $schedule->command('snapshot:cleanup')->daily();
+    $schedule->command('snapshot:clear', ['--older-than=30', '--confirm'])->daily();
 }
 ```
 
@@ -168,7 +168,9 @@ Add to your console kernel:
 protected function schedule(Schedule $schedule)
 {
     if (config('snapshot.scheduled.enabled')) {
-        $schedule->command('snapshot:scheduled')->hourly();
+        // Run scheduled snapshots for different models
+        $schedule->command('snapshot:schedule', ['App\Models\User', '--limit=1000'])->dailyAt('02:00');
+        $schedule->command('snapshot:schedule', ['App\Models\Order', '--limit=500'])->hourly();
     }
 }
 ```
