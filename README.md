@@ -1,467 +1,454 @@
 # Laravel Snapshot
 
-<div align="center">
-  <img src="new_logo.png" alt="Laravel Snapshot" width="100">
-  <p><strong>Track, store and compare snapshots of your Eloquent models — cleanly and safely.</strong></p>
+<img src="new_logo.png" alt="Laravel Snapshot" width="200">
 
-  [![Latest Version](https://img.shields.io/packagist/v/grazulex/laravel-snapshot)](https://packagist.org/packages/grazulex/laravel-snapshot)
-  [![Total Downloads](https://img.shields.io/packagist/dt/grazulex/laravel-snapshot)](https://packagist.org/packages/grazulex/laravel-snapshot)
-  [![License](https://img.shields.io/github/license/grazulex/laravel-snapshot)](LICENSE.md)
-  [![PHP Version](https://img.shields.io/badge/php-%5E8.3-blue)](https://php.net)
-  [![Laravel Version](https://img.shields.io/badge/laravel-%5E12.19-red)](https://laravel.com)
-  [![Tests](https://github.com/Grazulex/laravel-snapshot/workflows/Tests/badge.svg)](https://github.com/Grazulex/laravel-snapshot/actions)
-  [![Code Style](https://img.shields.io/badge/code%20style-pint-orange)](https://github.com/laravel/pint)
+Advanced model versioning and snapshot system for Laravel applications. Track model changes, create point-in-time snapshots, and restore previous states with comprehensive diff analysis.
 
-</div>
+[![Latest Version](https://img.shields.io/packagist/v/grazulex/laravel-snapshot.svg?style=flat-square)](https://packagist.org/packages/grazulex/laravel-snapshot)
+[![Total Downloads](https://img.shields.io/packagist/dt/grazulex/laravel-snapshot.svg?style=flat-square)](https://packagist.org/packages/grazulex/laravel-snapshot)
+[![License](https://img.shields.io/github/license/grazulex/laravel-snapshot.svg?style=flat-square)](https://github.com/Grazulex/laravel-snapshot/blob/main/LICENSE.md)
+[![PHP Version](https://img.shields.io/packagist/php-v/grazulex/laravel-snapshot.svg?style=flat-square)](https://php.net/)
+[![Laravel Version](https://img.shields.io/badge/laravel-12.x-ff2d20?style=flat-square&logo=laravel)](https://laravel.com/)
+[![Tests](https://img.shields.io/github/actions/workflow/status/grazulex/laravel-snapshot/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/Grazulex/laravel-snapshot/actions)
+[![Code Style](https://img.shields.io/badge/code%20style-pint-000000?style=flat-square&logo=laravel)](https://github.com/laravel/pint)
+
+## 📖 Table of Contents
+
+- [Overview](#overview)
+- [✨ Features](#-features)
+- [📦 Installation](#-installation)
+- [🚀 Quick Start](#-quick-start)
+- [📸 Creating Snapshots](#-creating-snapshots)
+- [🔄 Restoring Data](#-restoring-data)
+- [📊 Diff Analysis](#-diff-analysis)
+- [⚙️ Configuration](#️-configuration)
+- [📚 Documentation](#-documentation)
+- [💡 Examples](#-examples)
+- [🧪 Testing](#-testing)
+- [🔧 Requirements](#-requirements)
+- [🚀 Performance](#-performance)
+- [🤝 Contributing](#-contributing)
+- [🔒 Security](#-security)
+- [📄 License](#-license)
 
 ## Overview
 
-**Laravel Snapshot** lets you capture and store the state of any Eloquent model (or group of models) at a specific point in time — for traceability, diffing, testing, or audit purposes.
+Laravel Snapshot is an advanced model versioning and snapshot system that provides comprehensive change tracking, point-in-time snapshots, and restoration capabilities for Laravel applications. Perfect for audit trails, data recovery, and version control of your Eloquent models.
 
-## 📋 Table of Contents
+**Perfect for financial applications, content management systems, and any application requiring detailed audit trails and data recovery.**
 
-- [✨ Features](#-features)
-- [🚀 Quick Start](#-quick-start)
-- [📦 CLI Commands](#-cli-commands)
-- [📊 Advanced Features](#-advanced-features)
-- [💾 Storage Backends](#-storage-backends)
-- [⚙️ Configuration](#️-configuration)
-- [🧠 Use Cases](#-use-cases)
-- [🧪 Testing Support](#-testing-support)
-- [📚 Documentation & Examples](#-documentation--examples)
-- [🔧 Requirements](#-requirements)
-- [🚀 Performance](#-performance)
-- [🔒 Security Features](#-security-features)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
+### 🎯 Use Cases
+
+Laravel Snapshot is perfect for:
+
+- **Financial Systems** - Transaction history and audit trails
+- **Content Management** - Version control for articles and pages
+- **E-commerce** - Product and order history tracking  
+- **Data Recovery** - Point-in-time data restoration
+- **Compliance** - Regulatory audit trail requirements
 
 ## ✨ Features
 
-- 📸 **Manual snapshots** - Capture model state on demand
-- 🔄 **Automatic snapshots** - Auto-capture on create/update/delete events  
-- ⏰ **Scheduled snapshots** - Cron-based periodic snapshots
-- 📊 **Smart comparison** - Deep diff between any two snapshots
-- 📂 **Multiple storage** - File, database, or memory storage
-- 📈 **Rich reports** - Timeline, history, and analytics in HTML/JSON/CSV
-- 🎯 **Model tracking** - Full audit trail for any Eloquent model
-- 🧪 **Testing support** - Perfect for debugging and testing
-- ✅ **CLI commands** - Full command-line interface with advanced options
-- 🧠 **Smart serialization** - Handles relationships, casts, hidden fields
-- 📊 **Statistics & Analytics** - Change frequency, counters, most changed fields, event analysis
-- 🔍 **Model restoration** - Restore models to previous snapshot states with safety features
-- ⚡ **High performance** - Optimized for production use with configurable retention
-- 🛡️ **Security-first** - Configurable field exclusion and access control
-- 🎨 **Flexible reporting** - Multiple output formats with customizable templates
-- 🔧 **Advanced configuration** - Comprehensive config for all aspects
-- 📦 **Batch operations** - Process multiple snapshots efficiently
-- 🎛️ **Console tools** - Rich CLI with dry-run, confirmation, and filtering options
+- 🚀 **Automatic Snapshots** - Automatic model state capturing on changes
+- 📸 **Manual Snapshots** - Create snapshots at specific points in time
+- 🔄 **Easy Restoration** - Restore models to any previous state
+- 📊 **Diff Analysis** - Detailed comparison between model versions
+- 🎯 **Selective Tracking** - Track only specific model attributes
+- 📋 **Metadata Support** - Store additional context with snapshots
+- 🔍 **Advanced Querying** - Query snapshots by date, user, or criteria
+- 🎨 **Relationship Tracking** - Track changes in model relationships
+- ✅ **Validation** - Validate snapshot integrity and consistency
+- 📈 **Performance Optimized** - Efficient storage and retrieval
+- 🧪 **Testing Support** - Built-in testing utilities
+- ⚡ **Batch Operations** - Handle bulk snapshot operations
 
-## 🚀 Quick Start
+## 📦 Installation
 
-### Installation
+Install the package via Composer:
 
 ```bash
-# Install the package
 composer require grazulex/laravel-snapshot
+```
 
-# Publish config (optional)
+> **💡 Auto-Discovery**  
+> The service provider will be automatically registered thanks to Laravel's package auto-discovery.
+
+Publish configuration:
+
+```bash
 php artisan vendor:publish --tag=snapshot-config
+```
 
-# Publish migrations (if using database storage)
+Publish migrations:
+
+```bash
 php artisan vendor:publish --tag=snapshot-migrations
-
-# Run migrations
 php artisan migrate
 ```
 
-### Basic Usage
+## 🚀 Quick Start
 
-```php
-use Grazulex\LaravelSnapshot\Snapshot;
-
-// Create snapshots
-Snapshot::save($order, 'before-discount');
-Snapshot::save($order->fresh(), 'after-discount');
-
-// Compare snapshots
-$diff = Snapshot::diff('before-discount', 'after-discount');
-dd($diff);
-```
-
-### Using the HasSnapshots Trait
+### 1. Add the Trait to Your Model
 
 ```php
 use Grazulex\LaravelSnapshot\Traits\HasSnapshots;
 
-class Order extends Model
+class User extends Model
 {
     use HasSnapshots;
     
-    // Auto-snapshots on create, update, delete
-    // Configure in config/snapshot.php
+    // Optionally specify which attributes to track
+    protected $snapshotable = ['name', 'email', 'status'];
+    
+    // Exclude sensitive attributes
+    protected $snapshotExclude = ['password', 'remember_token'];
+}
+```
+
+### 2. Configure Automatic Snapshots
+
+```php
+// Automatic snapshots on model events
+class User extends Model
+{
+    use HasSnapshots;
+    
+    protected $snapshotEvents = ['created', 'updated', 'deleted'];
+    
+    // Custom snapshot triggers
+    protected $snapshotTriggers = [
+        'status_changed' => function ($model) {
+            return $model->isDirty('status');
+        }
+    ];
+}
+```
+
+### 3. Create and Manage Snapshots
+
+```php
+$user = User::find(1);
+
+// Create manual snapshot
+$snapshot = $user->createSnapshot('Before important update');
+
+// Update the model
+$user->update(['status' => 'active', 'email' => 'new@example.com']);
+
+// Get all snapshots
+$snapshots = $user->snapshots()->orderBy('created_at', 'desc')->get();
+
+// Get specific snapshot
+$latestSnapshot = $user->latestSnapshot();
+$firstSnapshot = $user->firstSnapshot();
+```
+
+### 4. Restore Previous States
+
+```php
+// Restore to latest snapshot
+$user->restoreFromLatestSnapshot();
+
+// Restore to specific snapshot
+$user->restoreFromSnapshot($snapshot);
+
+// Restore to specific date
+$user->restoreToDate(now()->subDays(7));
+
+// Preview restoration (without saving)
+$previewData = $user->previewRestore($snapshot);
+```
+
+## 📸 Creating Snapshots
+
+Laravel Snapshot provides flexible snapshot creation options:
+
+```php
+// Basic snapshot
+$user->createSnapshot();
+
+// Snapshot with description
+$user->createSnapshot('User activated premium account');
+
+// Snapshot with metadata
+$user->createSnapshot('Status change', [
+    'triggered_by' => auth()->id(),
+    'reason' => 'Admin approval',
+]);
+
+// Conditional snapshots
+$user->createSnapshotIf($user->isDirty('email'), 'Email updated');
+```
+
+## 🔄 Restoring Data
+
+Comprehensive data restoration capabilities:
+
+```php
+// Simple restoration
+$user->restoreFromSnapshot($snapshot);
+
+// Restoration with validation
+$user->restoreFromSnapshot($snapshot, ['validate' => true]);
+
+// Selective restoration (only specific attributes)
+$user->restoreFromSnapshot($snapshot, ['only' => ['name', 'status']]);
+
+// Restore to specific date
+$user->restoreToDate(now()->subDays(7));
+```
+
+## 📊 Diff Analysis
+
+Detailed comparison and analysis tools:
+
+```php
+use Grazulex\LaravelSnapshot\Analysis\Differ;
+
+$user = User::find(1);
+
+// Compare current state with snapshot
+$diff = $user->diffWithSnapshot($snapshot);
+
+foreach ($diff->getChanges() as $attribute => $change) {
+    echo "Attribute: {$attribute}\n";
+    echo "Old value: {$change['old']}\n";
+    echo "New value: {$change['new']}\n";
+    echo "Change type: {$change['type']}\n"; // added, modified, removed
 }
 
-// Use convenient methods
-$order->snapshot('order-created');
-$timeline = $order->getSnapshotTimeline();
-$report = $order->getHistoryReport('html');
-```
+// Compare two snapshots
+$diff = Differ::compare($snapshot1, $snapshot2);
 
-## 📦 CLI Commands
+// Visual diff output
+echo $diff->toHtml(); // HTML formatted diff
+echo $diff->toMarkdown(); // Markdown formatted diff
 
-### Basic Commands
-```bash
-# Manual snapshots  
-php artisan snapshot:save "App\Models\Order" --id=123 --label=before-shipping
-
-# Compare snapshots
-php artisan snapshot:diff before-shipping after-shipping
-
-# List all snapshots with filtering
-php artisan snapshot:list --model="App\Models\Order" --event=manual --limit=50
-
-# Generate comprehensive reports
-php artisan snapshot:report --model="App\Models\Order" --id=123 --format=html
-
-# Model restoration with safety features
-php artisan snapshot:restore "App\Models\Order" 123 "backup-snapshot" --dry-run
-
-# Scheduled snapshots (for cron jobs)
-php artisan snapshot:schedule "App\Models\User" --limit=100
-
-# Clear snapshots with filtering
-php artisan snapshot:clear --model=Order --older-than=30 --dry-run
-```
-
-## 📊 Advanced Features
-
-### Statistics & Analytics
-```php
-// Get comprehensive statistics
-$stats = Snapshot::stats($order)
-    ->counters()                    // Basic snapshot counts
-    ->mostChangedFields()           // Fields that change most often
-    ->changeFrequency()             // Changes over time periods
-    ->eventTypeAnalysis()           // Detailed event analysis
-    ->get();
-
-// Example results:
-$stats = [
-    'total_snapshots' => 150,
-    'snapshots_by_event' => ['manual' => 45, 'updated' => 85, 'created' => 20],
-    'most_changed_fields' => ['status' => 67, 'total' => 34, 'notes' => 28],
-    'changes_by_day' => ['2024-07-19' => 12, '2024-07-18' => 8],
-    'changes_by_week' => ['2024-29' => 45, '2024-28' => 38],
-    'changes_by_month' => ['2024-07' => 89, '2024-06' => 61],
-    'average_changes_per_day' => 3.2,
-    'event_type_percentages' => ['updated' => 56.7, 'manual' => 30.0, 'created' => 13.3],
-    'most_recent_by_event_type' => ['updated' => '2024-07-19 14:30:00', 'manual' => '2024-07-19 10:15:00']
-];
-
-// Get statistics as JSON
-$jsonStats = Snapshot::stats($order)->counters()->changeFrequency()->toJson();
-```
-
-### Timeline & History
-```php
-// Get detailed timeline with metadata
-$timeline = $order->getSnapshotTimeline(50); // Last 50 snapshots
-// Returns: [['id' => 1, 'label' => '...', 'event_type' => '...', 'created_at' => '...', 'data' => [...]], ...]
-
-// Generate reports in multiple formats
-$htmlReport = $order->getHistoryReport('html');    // Rich HTML with styling and diffs
-$jsonReport = $order->getHistoryReport('json');    // Structured data for APIs  
-$csvReport = $order->getHistoryReport('csv');      // Tabular format for analysis
-
-// Advanced report generation with custom options
-$report = SnapshotReport::for($order)
-    ->format('html')
-    ->options(['include_diffs' => true, 'max_entries' => 100])
-    ->generate();
-
-// Get latest snapshot and compare with current state
-$latestSnapshot = $order->getLatestSnapshot();
-$currentDiff = $order->compareWithSnapshot($latestSnapshot['id']);
-```
-
-### Scheduled Snapshots
-```php
-// Manual scheduled snapshot creation
-$result = Snapshot::scheduled($user, 'daily-backup-2024-07-19');
-
-// Via console command (ideal for cron jobs)
-php artisan snapshot:schedule "App\Models\User" --limit=100 --label=daily
-php artisan snapshot:schedule "App\Models\Order" --id=123 --label=backup
-
-// Add to your crontab or Laravel scheduler:
-// 0 2 * * * php artisan snapshot:schedule "App\Models\User" --limit=1000
-// 0 */6 * * * php artisan snapshot:schedule "App\Models\Order" --limit=500
-
-// Configure in schedule (app/Console/Kernel.php)
-$schedule->command('snapshot:schedule', ['App\Models\User', '--limit=1000'])
-         ->dailyAt('02:00');
-$schedule->command('snapshot:schedule', ['App\Models\Order', '--limit=500'])  
-         ->everySixHours();
-```
-
-### Model Restoration
-```php
-// Restore model to previous snapshot state
-$snapshot = $order->snapshots()->first();
-$success = $order->restoreFromSnapshot($snapshot->id);
-
-// Or restore by snapshot label
-$success = $order->restoreFromSnapshot('before-important-change');
-
-// Compare current state with previous snapshot before restoring
-$diff = $order->compareWithSnapshot('backup-snapshot');
-if (!empty($diff['modified'])) {
-    echo "Changes would be applied:\n";
-    foreach ($diff['modified'] as $field => $change) {
-        echo "- {$field}: {$change['from']} → {$change['to']}\n";
-    }
-}
-
-// Restore via console command with safety features
-php artisan snapshot:restore "App\Models\Order" 123 "backup-snapshot" --dry-run
-php artisan snapshot:restore "App\Models\Order" 123 "backup-snapshot" --force
-```
-
-## 💾 Storage Backends
-
-### Database Storage (Default)
-- **Best for**: Production applications with frequent querying
-- **Features**: Fast queries, relationships, built-in indexing
-- **Configuration**: Automatic, uses `snapshots` table
-
-### File Storage
-- **Best for**: Archival storage, backup scenarios
-- **Features**: Human-readable JSON files, easy backup
-- **Configuration**: Set `SNAPSHOT_DRIVER=file` in .env
-
-```php
-// config/snapshot.php
-'default' => 'file',
-'drivers' => [
-    'file' => [
-        'driver' => 'file',
-        'path' => storage_path('snapshots'),
-    ],
-],
-```
-
-### Array Storage (Testing)
-- **Best for**: Unit tests and development
-- **Features**: In-memory, no persistence
-- **Usage**: Automatically cleared between tests
-
-```php
-// In tests
-Snapshot::setStorage(new ArrayStorage());
+// Diff statistics
+$stats = $diff->getStats();
+echo "Total changes: {$stats['total']}\n";
+echo "Added: {$stats['added']}\n";
+echo "Modified: {$stats['modified']}\n";
+echo "Removed: {$stats['removed']}\n";
 ```
 
 ## ⚙️ Configuration
 
-### Core Storage Settings
+Laravel Snapshot provides extensive configuration options:
+
 ```php
 // config/snapshot.php
-'default' => 'database', // Default storage driver
-
-'drivers' => [
-    'database' => [
-        'driver' => 'database',
-        'table' => 'snapshots',
+return [
+    'storage' => [
+        'driver' => 'database', // database, file, s3
+        'table' => 'model_snapshots',
+        'compress' => true,
     ],
-    'file' => [
-        'driver' => 'file',
-        'path' => storage_path('snapshots'),
-    ],
-    'array' => [
-        'driver' => 'array', // In-memory, for testing
-    ],
-],
-```
-
-### Serialization Options
-```php
-'serialization' => [
-    'include_hidden' => false,           // Include hidden model attributes
-    'include_timestamps' => true,        // Include created_at/updated_at
-    'include_relationships' => true,     // Include loaded relationships
-    'max_relationship_depth' => 3,       // Maximum depth for nested relationships
-],
-```
-
-### Automatic Snapshots
-```php
-'automatic' => [
-    'enabled' => true,
-    'events' => ['created', 'updated', 'deleted'],
-    'exclude_fields' => ['updated_at', 'password', 'remember_token'],
-    'models' => [
-        'App\Models\Order' => ['created', 'updated', 'deleted'],
-        'App\Models\User' => ['created', 'updated'],
-        'App\Models\Payment' => ['created'],
-    ],
-],
-```
-
-### Scheduled Snapshots
-```php
-'scheduled' => [
-    'enabled' => true,
-    'default_frequency' => 'daily',
-    'models' => [
-        'App\Models\User' => 'daily',
-        'App\Models\Order' => 'hourly',
-        'App\Models\Invoice' => 'weekly',
-    ],
-],
-```
-
-### Retention Policy
-```php
-'retention' => [
-    'enabled' => true,
-    'days' => 30,              // Keep snapshots for 30 days
-    'auto_cleanup' => true,    // Automatically clean up old snapshots
-],
-```
-
-### Reports & Analytics
-```php
-'reports' => [
-    'enabled' => true,
-    'formats' => ['html', 'json', 'csv'],
-    'template' => 'default',
-    'max_timeline_entries' => 100,
-    'include_diffs' => true,
-],
-```
-
-## 🧠 Use Cases
-
-### E-commerce
-- Snapshot orders before and after processing
-- Track price changes and discounts  
-- Monitor inventory levels over time
-- Audit payment transactions
-- **NEW**: Restore orders to previous states if processing errors occur
-
-### Content Management
-- Version control for articles and pages
-- Track editorial changes and approvals
-- Backup content before major updates
-- Compare content versions
-- **NEW**: Generate change reports for editorial workflow
-
-### User Management
-- Audit trail for profile changes
-- Track permission and role updates
-- Monitor sensitive data modifications
-- Compliance and security auditing
-- **NEW**: Analyze user behavior patterns through snapshot statistics
-
-### Financial Applications
-- Snapshot account balances before transactions
-- Track investment portfolio changes
-- Audit financial calculations
-- Regulatory compliance reporting
-- **NEW**: Automated restoration procedures for transaction rollbacks
-
-### Development & Testing
-- Debug model state changes during development
-- Verify expected changes in feature tests
-- Compare before/after states in CI/CD
-- Rollback safety during deployments
-- **NEW**: Performance analysis of data changes over time
-
-## 🧪 Testing Support
-
-### Feature Testing
-```php
-public function test_order_processing()
-{
-    // Create initial snapshot
-    Snapshot::save($order, 'initial');
     
-    // Process the order
-    $this->orderProcessor->process($order);
+    'automatic' => [
+        'enabled' => true,
+        'events' => ['created', 'updated'],
+        'throttle' => '1 minute', // Prevent duplicate snapshots
+    ],
     
-    // Verify changes
-    Snapshot::save($order, 'processed');
-    $diff = Snapshot::diff('initial', 'processed');
+    'retention' => [
+        'enabled' => true,
+        'keep_snapshots' => 100,
+        'keep_for_days' => 365,
+    ],
     
-    $this->assertArrayHasKey('modified', $diff);
-    $this->assertEquals('completed', $diff['modified']['status']['to']);
+    'features' => [
+        'track_relationships' => true,
+        'track_metadata' => true,
+        'validate_integrity' => true,
+    ],
+];
+```
+
+## 📚 Documentation
+
+For detailed documentation, examples, and advanced usage:
+
+- 📚 [Full Documentation](docs/README.md)
+- 🎯 [Examples](examples/README.md)
+- 🔧 [Configuration](docs/configuration.md)
+- 🧪 [Testing](docs/testing.md)
+- 📊 [Diff Analysis](docs/diff-analysis.md)
+
+## 💡 Examples
+
+### Advanced Snapshot Management
+
+```php
+use Grazulex\LaravelSnapshot\Facades\Snapshot;
+
+// Batch snapshot creation
+Snapshot::batch(function () {
+    $users = User::where('created_at', '>=', now()->subDays(7))->get();
+    
+    foreach ($users as $user) {
+        $user->createSnapshot('Weekly backup');
+    }
+});
+
+// Snapshot with complex metadata
+$order = Order::find(1);
+$order->createSnapshot('Order processed', [
+    'processor' => auth()->user()->name,
+    'location' => request()->header('X-Location'),
+    'version' => config('app.version'),
+    'environment' => app()->environment(),
+]);
+
+// Conditional restoration
+$user = User::find(1);
+$snapshot = $user->snapshots()->where('description', 'Before migration')->first();
+
+if ($snapshot && $user->shouldRestore($snapshot)) {
+    $user->restoreFromSnapshot($snapshot);
 }
 ```
 
-### Unit Testing
+### Audit Trail Implementation
+
 ```php
-public function setUp(): void
+// Custom audit trail using snapshots
+class AuditTrail
 {
-    parent::setUp();
+    public static function track($model, $action)
+    {
+        $model->createSnapshot("Audit: {$action}", [
+            'audit_action' => $action,
+            'user_id' => auth()->id(),
+            'timestamp' => now(),
+            'session_id' => session()->getId(),
+        ]);
+    }
     
-    // Use in-memory storage for tests
-    Snapshot::setStorage(new ArrayStorage());
+    public static function getAuditLog($model)
+    {
+        return $model->snapshots()
+            ->whereJsonContains('metadata->audit_action', '!=', null)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
+}
+
+// Usage
+AuditTrail::track($user, 'login');
+AuditTrail::track($user, 'profile_update');
+$auditLog = AuditTrail::getAuditLog($user);
+```
+
+### Data Recovery Workflow
+
+```php
+// Data recovery service
+class DataRecoveryService
+{
+    public function recoverToDate($model, $date)
+    {
+        $snapshot = $model->snapshots()
+            ->where('created_at', '<=', $date)
+            ->orderBy('created_at', 'desc')
+            ->first();
+            
+        if ($snapshot) {
+            return $model->restoreFromSnapshot($snapshot);
+        }
+        
+        throw new Exception('No snapshot found for the specified date');
+    }
+    
+    public function previewRecovery($model, $snapshot)
+    {
+        $current = $model->toArray();
+        $restored = $snapshot->data;
+        
+        return [
+            'current' => $current,
+            'restored' => $restored,
+            'changes' => array_diff_assoc($restored, $current),
+        ];
+    }
 }
 ```
 
-## 📚 Documentation & Examples
+Check out the [examples directory](examples) for more examples.
 
-- **[Complete Documentation](docs/README.md)** - Comprehensive guides and API reference
-- **[Getting Started Guide](docs/getting-started.md)** - Quick start tutorial
-- **[Configuration Guide](docs/configuration.md)** - Detailed configuration options
-- **[Basic Usage](docs/basic-usage.md)** - Core features and examples
-- **[Console Commands](docs/console-commands.md)** - CLI reference
-- **[API Reference](docs/api-reference.md)** - Complete API documentation
+## 🧪 Testing
 
-### Practical Examples
+Laravel Snapshot includes comprehensive testing utilities:
 
-- **[Basic Usage Example](examples/basic-usage.php)** - Simple snapshot operations
-- **[E-commerce Order Processing](examples/ecommerce-order-processing.php)** - Real-world order tracking
-- **[Model with HasSnapshots Trait](examples/model-with-trait.php)** - Trait integration
-- **[More Examples →](examples/README.md)**
+```php
+use Grazulex\LaravelSnapshot\Testing\SnapshotTester;
+
+public function test_model_snapshot_creation()
+{
+    $user = User::factory()->create();
+    
+    SnapshotTester::make($user)
+        ->createSnapshot('Test snapshot')
+        ->assertSnapshotExists()
+        ->assertSnapshotCount(1)
+        ->assertSnapshotContains(['name', 'email']);
+}
+
+public function test_model_restoration()
+{
+    $user = User::factory()->create(['status' => 'inactive']);
+    $snapshot = $user->createSnapshot();
+    
+    $user->update(['status' => 'active']);
+    
+    SnapshotTester::make($user)
+        ->restoreFromSnapshot($snapshot)
+        ->assertRestoredSuccessfully()
+        ->assertAttribute('status', 'inactive');
+}
+```
 
 ## 🔧 Requirements
 
-- **PHP**: ^8.3
-- **Laravel**: ^12.19
-- **Carbon**: ^3.10
-- **Database**: MySQL, PostgreSQL, SQLite, or SQL Server
+- PHP: ^8.3
+- Laravel: ^12.0
+- Carbon: ^3.10
 
 ## 🚀 Performance
 
-Laravel Snapshot is designed for production use:
+Laravel Snapshot is optimized for performance:
 
-- **Efficient Storage**: Minimal database impact with optimized schemas
-- **Smart Serialization**: Configurable field inclusion/exclusion  
-- **Bulk Operations**: Process multiple snapshots efficiently
-- **Memory Management**: Handles large models without memory issues
-- **Query Optimization**: Indexed lookups and efficient comparisons
+- **Efficient Storage**: Optimized snapshot data compression
+- **Smart Caching**: Intelligent snapshot caching strategies
+- **Batch Operations**: Efficient bulk snapshot processing
+- **Query Optimization**: Optimized database queries for large datasets
 
-## 🔒 Security Features
-
-- **Field Exclusion**: Automatically exclude sensitive fields (passwords, tokens)
-- **Access Control**: Integrate with your application's authorization
-- **Data Encryption**: Optional encryption for sensitive snapshot data
-- **Audit Logging**: Track who creates and accesses snapshots
-
-## <span style="color: #88C600;">🤝</span> Contributing
+## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-## <span style="color: #FF9900;">🔒</span> Security
+## 🔒 Security
 
 If you discover a security vulnerability, please review our [Security Policy](SECURITY.md) before disclosing it.
 
-## <span style="color: #FF9900;">📄</span> License
+## 📄 License
 
 Laravel Snapshot is open-sourced software licensed under the [MIT license](LICENSE.md).
 
 ---
 
-<div align="center">
-  Made with <span style="color: #FF9900;">❤️</span> for the <span style="color: #88C600;">Laravel</span> community
-</div>
+**Made with ❤️ for the Laravel community**
+
+### Resources
+
+- [📖 Documentation](docs/README.md)
+- [💬 Discussions](https://github.com/Grazulex/laravel-snapshot/discussions)
+- [🐛 Issue Tracker](https://github.com/Grazulex/laravel-snapshot/issues)
+- [📦 Packagist](https://packagist.org/packages/grazulex/laravel-snapshot)
+
+### Community Links
+
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) - Our code of conduct
+- [CONTRIBUTING.md](CONTRIBUTING.md) - How to contribute
+- [SECURITY.md](SECURITY.md) - Security policy
+- [RELEASES.md](RELEASES.md) - Release notes and changelog
