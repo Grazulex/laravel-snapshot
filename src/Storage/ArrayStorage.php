@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Grazulex\LaravelSnapshot\Storage;
 
-class ArrayStorage implements StorageInterface
+class ArrayStorage implements SnapshotStorage, StorageInterface
 {
     private static array $snapshots = [];
 

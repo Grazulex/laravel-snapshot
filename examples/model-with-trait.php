@@ -1,20 +1,23 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Example: Model with HasSnapshots Trait
  * Description: Demonstrates using the HasSnapshots trait for convenient model snapshot operations
- * 
+ *
  * Prerequisites:
  * - Order model with HasSnapshots trait
  * - Order factory or ability to create orders
- * 
+ *
  * Usage:
  * php artisan tinker
  * >>> include 'examples/model-with-trait.php';
  */
 
+use Grazulex\LaravelSnapshot\Snapshot;
 use Grazulex\LaravelSnapshot\Traits\HasSnapshots;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 
 echo "=== Laravel Snapshot HasSnapshots Trait Example ===\n\n";
 
@@ -23,12 +26,13 @@ echo "=== Laravel Snapshot HasSnapshots Trait Example ===\n\n";
 class ExampleOrder extends Model
 {
     use HasSnapshots;
-    
-    protected $fillable = ['customer_name', 'total', 'status', 'items_count'];
-    protected $table = 'orders'; // Assumes you have an orders table
-    
+
     // Disable timestamps for this example
     public $timestamps = false;
+
+    protected $fillable = ['customer_name', 'total', 'status', 'items_count'];
+
+    protected $table = 'orders'; // Assumes you have an orders table
 }
 
 try {
@@ -38,13 +42,13 @@ try {
         'customer_name' => 'Jane Doe',
         'total' => 99.99,
         'status' => 'pending',
-        'items_count' => 3
+        'items_count' => 3,
     ]);
-    
+
     // For this example, we'll simulate saving without actually touching the database
     $order->exists = true;
     $order->id = 1;
-    
+
     echo "1. Created order for: {$order->customer_name}\n";
     echo "   Total: \${$order->total}, Status: {$order->status}, Items: {$order->items_count}\n";
 
@@ -69,7 +73,7 @@ try {
 
     // Get timeline using trait method
     echo "\n6. Order timeline (using trait method):\n";
-    
+
     // Note: In real usage, this would query the database
     // For this example, we'll simulate the timeline
     $simulatedTimeline = [
@@ -78,29 +82,29 @@ try {
             'label' => 'order-created',
             'event_type' => 'manual',
             'created_at' => now()->subMinutes(10),
-            'data' => json_encode(['attributes' => ['status' => 'pending', 'total' => 99.99]])
+            'data' => json_encode(['attributes' => ['status' => 'pending', 'total' => 99.99]]),
         ],
         [
             'id' => 2,
             'label' => 'order-processing',
             'event_type' => 'manual',
             'created_at' => now()->subMinutes(8),
-            'data' => json_encode(['attributes' => ['status' => 'processing', 'total' => 99.99]])
+            'data' => json_encode(['attributes' => ['status' => 'processing', 'total' => 99.99]]),
         ],
         [
             'id' => 3,
             'label' => 'order-discounted',
             'event_type' => 'manual',
             'created_at' => now()->subMinutes(5),
-            'data' => json_encode(['attributes' => ['status' => 'processing', 'total' => 79.99]])
+            'data' => json_encode(['attributes' => ['status' => 'processing', 'total' => 79.99]]),
         ],
         [
             'id' => 4,
             'label' => 'order-completed',
             'event_type' => 'manual',
             'created_at' => now(),
-            'data' => json_encode(['attributes' => ['status' => 'completed', 'total' => 79.99]])
-        ]
+            'data' => json_encode(['attributes' => ['status' => 'completed', 'total' => 79.99]]),
+        ],
     ];
 
     foreach ($simulatedTimeline as $entry) {
@@ -112,10 +116,9 @@ try {
 
     // Compare snapshots using static method
     echo "\n7. Comparing initial vs final state:\n";
-    use Grazulex\LaravelSnapshot\Snapshot;
-    
+
     $diff = Snapshot::diff('order-created', 'order-completed');
-    
+
     if (isset($diff['modified'])) {
         foreach ($diff['modified'] as $field => $changes) {
             echo "   - {$field}: {$changes['from']} → {$changes['to']}\n";
@@ -150,7 +153,7 @@ try {
     }
 
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo 'Error: '.$e->getMessage()."\n";
     echo "Note: This example simulates database operations for demonstration.\n";
     echo "In a real application, ensure your models and database are properly configured.\n";
 }

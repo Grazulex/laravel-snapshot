@@ -50,7 +50,7 @@ jobs:
   
       - name: Execute tests
         run: |
-          vendor/bin/phpunit tests/SimpleStorageTest.php tests/TemplateRendererStandaloneTest.php tests/AdditionalClassesTest.php
+          vendor/bin/pest
           vendor/bin/phpstan analyse --memory-limit=2G --configuration=phpstan.neon
           
       - name: Create Git tag

@@ -47,7 +47,7 @@ trait HasSnapshots
                     'label' => $snapshot->label,
                     'event_type' => $snapshot->event_type,
                     'created_at' => $snapshot->created_at,
-                    'data' => json_decode($snapshot->data, true),
+                    'data' => is_string($snapshot->data) ? json_decode($snapshot->data, true) : $snapshot->data,
                 ];
             })
             ->toArray();
@@ -70,7 +70,7 @@ trait HasSnapshots
     {
         $snapshot = $this->snapshots()->first();
 
-        return $snapshot ? json_decode($snapshot->data, true) : null;
+        return $snapshot ? (is_string($snapshot->data) ? json_decode($snapshot->data, true) : $snapshot->data) : null;
     }
 
     /**
@@ -79,14 +79,17 @@ trait HasSnapshots
     public function compareWithSnapshot(string $snapshotId): array
     {
         $currentSnapshot = Snapshot::serializeModel($this);
-        $previousSnapshot = $this->snapshots()->find($snapshotId);
+
+        // Try to find by ID first, then by label
+        $previousSnapshot = $this->snapshots()->find($snapshotId)
+            ?? $this->snapshots()->where('label', $snapshotId)->first();
 
         if (! $previousSnapshot) {
-            throw new InvalidArgumentException("Snapshot with ID {$snapshotId} not found");
+            throw new InvalidArgumentException("Snapshot with ID or label {$snapshotId} not found");
         }
 
         return Snapshot::calculateDiff(
-            json_decode($previousSnapshot->data, true),
+            is_string($previousSnapshot->data) ? json_decode($previousSnapshot->data, true) : $previousSnapshot->data,
             $currentSnapshot
         );
     }
@@ -102,7 +105,7 @@ trait HasSnapshots
             throw new InvalidArgumentException("Snapshot with ID {$snapshotId} not found");
         }
 
-        $data = json_decode($snapshot->data, true);
+        $data = is_string($snapshot->data) ? json_decode($snapshot->data, true) : $snapshot->data;
 
         if (isset($data['attributes'])) {
             $this->fill($data['attributes']);
@@ -111,6 +114,14 @@ trait HasSnapshots
         }
 
         return false;
+    }
+
+    /**
+     * Generate a snapshot report for this model.
+     */
+    public function generateSnapshotReport(string $format = 'default'): SnapshotReport
+    {
+        return SnapshotReport::for($this);
     }
 
     /**
