@@ -18,6 +18,23 @@
 
 **Laravel Snapshot** lets you capture and store the state of any Eloquent model (or group of models) at a specific point in time — for traceability, diffing, testing, or audit purposes.
 
+## 📋 Table of Contents
+
+- [✨ Features](#-features)
+- [🚀 Quick Start](#-quick-start)
+- [📦 CLI Commands](#-cli-commands)
+- [📊 Advanced Features](#-advanced-features)
+- [💾 Storage Backends](#-storage-backends)
+- [⚙️ Configuration](#️-configuration)
+- [🧠 Use Cases](#-use-cases)
+- [🧪 Testing Support](#-testing-support)
+- [📚 Documentation & Examples](#-documentation--examples)
+- [🔧 Requirements](#-requirements)
+- [🚀 Performance](#-performance)
+- [🔒 Security Features](#-security-features)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+
 ## ✨ Features
 
 - 📸 **Manual snapshots** - Capture model state on demand
@@ -424,12 +441,24 @@ Laravel Snapshot is designed for production use:
 - **Memory Management**: Handles large models without memory issues
 - **Query Optimization**: Indexed lookups and efficient comparisons
 
-## 🛡️ Security
+## 🔒 Security Features
 
 - **Field Exclusion**: Automatically exclude sensitive fields (passwords, tokens)
 - **Access Control**: Integrate with your application's authorization
 - **Data Encryption**: Optional encryption for sensitive snapshot data
 - **Audit Logging**: Track who creates and accesses snapshots
+
+## <span style="color: #88C600;">🤝</span> Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## <span style="color: #FF9900;">🔒</span> Security
+
+If you discover a security vulnerability, please review our [Security Policy](SECURITY.md) before disclosing it.
+
+## <span style="color: #FF9900;">📄</span> License
+
+Laravel Snapshot is open-sourced software licensed under the [MIT license](LICENSE.md).
 
 ---
 
