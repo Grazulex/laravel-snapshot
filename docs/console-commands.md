@@ -126,14 +126,12 @@ List all available snapshots with filtering options.
 
 #### Signature
 ```bash
-php artisan snapshot:list {--model=} {--event=} {--limit=50} {--format=table}
+php artisan snapshot:list {--model=} {--limit=50}
 ```
 
 #### Options
 - `--model` - Filter by model class (optional)
-- `--event` - Filter by event type (manual, created, updated, deleted, scheduled)
 - `--limit` - Maximum number of snapshots to show (default: 50)
-- `--format` - Output format: table, json, csv (default: table)
 
 #### Examples
 
@@ -144,14 +142,11 @@ php artisan snapshot:list
 # List only User model snapshots
 php artisan snapshot:list --model="App\Models\User"
 
-# List only manual snapshots
-php artisan snapshot:list --event=manual
-
-# List recent 10 snapshots as JSON
-php artisan snapshot:list --limit=10 --format=json
+# List recent 10 snapshots
+php artisan snapshot:list --limit=10
 
 # Combine filters
-php artisan snapshot:list --model="App\Models\Order" --event=updated --limit=20
+php artisan snapshot:list --model="App\Models\Order" --limit=20
 ```
 
 #### Output (Table Format)
@@ -202,26 +197,32 @@ Generate comprehensive reports for model snapshots.
 
 #### Signature  
 ```bash
-php artisan snapshot:report {--model=} {--id=} {--format=html} {--output=}
+php artisan snapshot:report {model} {--id=} {--format=html} {--period=} {--output=}
 ```
 
+#### Parameters
+- `model` - The fully qualified model class name (e.g., `"App\Models\User"`)
+
 #### Options
-- `--model` - Model class name (required)
-- `--id` - Model ID (required)  
+- `--id` - Model ID (optional, generates report for specific model instance)  
 - `--format` - Report format: html, json, csv (default: html)
+- `--period` - Time period for the report (optional)
 - `--output` - Output file path (optional, prints to console if not specified)
 
 #### Examples
 
 ```bash
 # Generate HTML report for a user
-php artisan snapshot:report --model="App\Models\User" --id=1
+php artisan snapshot:report "App\Models\User" --id=1
 
 # Generate JSON report and save to file
-php artisan snapshot:report --model="App\Models\User" --id=1 --format=json --output=user_report.json
+php artisan snapshot:report "App\Models\User" --id=1 --format=json --output=user_report.json
 
 # Generate CSV report for an order
-php artisan snapshot:report --model="App\Models\Order" --id=123 --format=csv --output=order_history.csv
+php artisan snapshot:report "App\Models\Order" --id=123 --format=csv --output=order_history.csv
+
+# Generate report for all users (summary)
+php artisan snapshot:report "App\Models\User"
 ```
 
 #### Output (HTML Format)
@@ -258,15 +259,15 @@ Delete snapshots with various filtering options.
 
 #### Signature
 ```bash
-php artisan snapshot:clear {--model=} {--event=} {--older-than=} {--confirm} {--dry-run}
+php artisan snapshot:clear {--model=} {--id=} {--event=} {--before=} {--after=}
 ```
 
 #### Options
 - `--model` - Delete snapshots for specific model class only
+- `--id` - Delete snapshots for specific model ID only
 - `--event` - Delete snapshots of specific event type only
-- `--older-than` - Delete snapshots older than specified days (e.g., 30)
-- `--confirm` - Skip confirmation prompt
-- `--dry-run` - Show what would be deleted without actually deleting
+- `--before` - Delete snapshots created before this date (Y-m-d format)
+- `--after` - Delete snapshots created after this date (Y-m-d format)
 
 #### Examples
 
@@ -277,17 +278,17 @@ php artisan snapshot:clear
 # Clear all User snapshots
 php artisan snapshot:clear --model="App\Models\User"
 
+# Clear snapshots for specific user
+php artisan snapshot:clear --model="App\Models\User" --id=1
+
 # Clear manual snapshots only
 php artisan snapshot:clear --event=manual
 
-# Clear snapshots older than 30 days
-php artisan snapshot:clear --older-than=30
+# Clear snapshots before a specific date
+php artisan snapshot:clear --before=2024-01-01
 
-# Clear with no confirmation prompt
-php artisan snapshot:clear --model="App\Models\User" --confirm
-
-# Dry run to see what would be deleted
-php artisan snapshot:clear --older-than=7 --dry-run
+# Clear snapshots from a specific date range
+php artisan snapshot:clear --after=2024-01-01 --before=2024-07-01
 ```
 
 #### Output
@@ -310,6 +311,115 @@ Total: 3 snapshots would be deleted
 - Shows what will be deleted before proceeding
 - Supports dry-run mode for safety
 - Provides detailed deletion summary
+
+---
+
+### `snapshot:restore`
+
+Restore a model to a previous snapshot state.
+
+#### Signature
+```bash
+php artisan snapshot:restore {model} {id} {snapshot} {--dry-run} {--force}
+```
+
+#### Parameters
+- `model` - The fully qualified model class name (e.g., `"App\Models\User"`)
+- `id` - The model ID to restore
+- `snapshot` - The snapshot ID or label to restore from
+
+#### Options
+- `--dry-run` - Show what would be restored without actually restoring
+- `--force` - Force restoration without confirmation
+
+#### Examples
+
+```bash
+# Restore a user to a previous snapshot
+php artisan snapshot:restore "App\Models\User" 1 user-before-update
+
+# Dry run to see what would be restored
+php artisan snapshot:restore "App\Models\User" 1 user-before-update --dry-run
+
+# Force restore without confirmation
+php artisan snapshot:restore "App\Models\User" 1 user-before-update --force
+
+# Restore using snapshot ID
+php artisan snapshot:restore "App\Models\Order" 123 15
+```
+
+#### Output
+```
+Restoring App\Models\User #1 to snapshot 'user-before-update'...
+
+Changes to be applied:
+  name: "John Smith" → "John Doe"
+  email: "john.smith@example.com" → "john@example.com"
+
+Do you want to continue? (yes/no) [no]: yes
+
+Model restored successfully!
+```
+
+#### Safety Features
+- Always prompts for confirmation unless `--force` is used
+- Shows what will be changed before proceeding
+- Supports dry-run mode for safety
+- Validates snapshot exists before attempting restore
+
+---
+
+### `snapshot:schedule`
+
+Create snapshots for models on a scheduled basis.
+
+#### Signature
+```bash
+php artisan snapshot:schedule {model} {--id=} {--label=} {--limit=100}
+```
+
+#### Parameters
+- `model` - The fully qualified model class name (e.g., `"App\Models\User"`)
+
+#### Options
+- `--id` - Specific model ID (if not provided, snapshots all models of this type)
+- `--label` - Custom label prefix for the snapshots
+- `--limit` - Limit number of models to snapshot (default: 100)
+
+#### Examples
+
+```bash
+# Schedule snapshots for all users (limited to 100)
+php artisan snapshot:schedule "App\Models\User"
+
+# Schedule snapshot for specific user
+php artisan snapshot:schedule "App\Models\User" --id=1
+
+# Schedule with custom label prefix
+php artisan snapshot:schedule "App\Models\Order" --label=daily-backup
+
+# Schedule with custom limit
+php artisan snapshot:schedule "App\Models\User" --limit=50
+```
+
+#### Output
+```
+Creating scheduled snapshots for App\Models\User...
+
+Processing 15 models...
+✓ User #1: scheduled-User-1-daily-2024-07-19-14-30-00
+✓ User #2: scheduled-User-2-daily-2024-07-19-14-30-01  
+✓ User #3: scheduled-User-3-daily-2024-07-19-14-30-02
+...
+
+Successfully created 15 snapshots.
+```
+
+#### Use Cases
+- Daily backups via cron jobs
+- Bulk snapshot creation
+- Scheduled auditing
+- Regular state preservation
 
 ---
 
