@@ -2,42 +2,28 @@
 
 This directory contains practical examples demonstrating various Laravel Snapshot features and use cases.
 
-## Quick Start Examples
+## Available Examples
 
+### Core Examples
 1. [Basic Usage](basic-usage.php) - Simple snapshot creation and comparison
-2. [Model with Trait](model-with-trait.php) - Using the HasSnapshots trait
-3. [Console Commands](console-commands.md) - Command-line examples
+2. [Model with Trait](model-with-trait.php) - Using the HasSnapshots trait  
+3. [Console Commands](console-commands.md) - Command-line interface examples
 
-## Real-World Use Cases
+### Real-World Use Cases
+4. [E-commerce Order Processing](ecommerce-order-processing.php) - Comprehensive order tracking through processing pipeline
+5. [User Profile Auditing](user-profile-auditing.php) - Comprehensive audit trail for user profile changes
 
-4. [E-commerce Order Processing](ecommerce-order-processing.php) - Track order changes through processing pipeline
-5. [User Profile Auditing](user-profile-auditing.php) - Audit trail for user profile changes
-6. [Content Management](content-management.php) - Track changes to articles and pages
-7. [Financial Transaction Tracking](financial-transaction-tracking.php) - Monitor critical financial data
+### Advanced Features
+6. [Scheduled Snapshots](scheduled-snapshots.php) - Periodic snapshots with cron integration and monitoring
+7. [Automated Testing](automated-testing.php) - Using snapshots in feature tests and test-driven development
 
-## Advanced Features
-
-8. [Custom Storage Backend](custom-storage-backend.php) - Implement custom storage driver
-9. [Automated Testing](automated-testing.php) - Using snapshots in feature tests
-10. [Scheduled Snapshots](scheduled-snapshots.php) - Periodic automatic snapshots
-11. [Report Generation](report-generation.php) - Generate comprehensive reports
-
-## Configuration Examples
-
-12. [Production Configuration](config-production.php) - Production-ready configuration
-13. [Development Configuration](config-development.php) - Development environment setup
-14. [Multi-tenant Setup](config-multi-tenant.php) - Configuration for multi-tenant applications
-
-## Integration Examples
-
-15. [API Integration](api-integration.php) - Snapshot API endpoints for external integrations
-16. [Event Sourcing](event-sourcing.php) - Using snapshots for event sourcing patterns
-17. [Data Migration](data-migration.php) - Using snapshots during data migrations
-
-## Performance Examples
-
-18. [High Volume Applications](high-volume-optimization.php) - Optimization for high-traffic applications
-19. [Large Model Handling](large-model-handling.php) - Handling models with many attributes/relationships
+### Coming Soon
+Additional examples are being developed and will be added in future releases:
+- Content Management - Track content versions  
+- Financial Transaction Tracking - Monitor financial data
+- Custom Storage Backend - Implement custom drivers
+- Report Generation - Advanced reporting examples
+- API Integration - External system integration
 
 ## Running Examples
 
