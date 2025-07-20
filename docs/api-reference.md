@@ -40,19 +40,23 @@ Create an automatic snapshot triggered by model events.
 $snapshot = Snapshot::auto($user, 'updated');
 ```
 
-##### `scheduled($model, string $frequency): array`
+##### `scheduled($model, ?string $label = null): array`
 
 Create a scheduled snapshot.
 
 **Parameters:**
 - `$model` - The model instance  
-- `$frequency` - Schedule frequency ('daily', 'hourly', 'weekly')
+- `$label` - Optional custom label (auto-generated if not provided)
 
 **Returns:** Array containing the saved snapshot data
 
 **Example:**
 ```php
-$snapshot = Snapshot::scheduled($user, 'daily');
+// With custom label
+$snapshot = Snapshot::scheduled($user, 'daily-backup');
+
+// With auto-generated label
+$snapshot = Snapshot::scheduled($user);
 ```
 
 ##### `load(string $label): ?array`
