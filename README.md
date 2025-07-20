@@ -25,15 +25,19 @@
 - ⏰ **Scheduled snapshots** - Cron-based periodic snapshots
 - 📊 **Smart comparison** - Deep diff between any two snapshots
 - 📂 **Multiple storage** - File, database, or memory storage
-- 📈 **Rich reports** - Timeline, history, and analytics
+- 📈 **Rich reports** - Timeline, history, and analytics in HTML/JSON/CSV
 - 🎯 **Model tracking** - Full audit trail for any Eloquent model
 - 🧪 **Testing support** - Perfect for debugging and testing
-- ✅ **CLI commands** - Full command-line interface
+- ✅ **CLI commands** - Full command-line interface with advanced options
 - 🧠 **Smart serialization** - Handles relationships, casts, hidden fields
-- 📊 **Statistics & Analytics** - Change frequency, counters, most changed fields
-- 🔍 **Model restoration** - Restore models to previous snapshot states
-- ⚡ **High performance** - Optimized for production use
+- 📊 **Statistics & Analytics** - Change frequency, counters, most changed fields, event analysis
+- 🔍 **Model restoration** - Restore models to previous snapshot states with safety features
+- ⚡ **High performance** - Optimized for production use with configurable retention
 - 🛡️ **Security-first** - Configurable field exclusion and access control
+- 🎨 **Flexible reporting** - Multiple output formats with customizable templates
+- 🔧 **Advanced configuration** - Comprehensive config for all aspects
+- 📦 **Batch operations** - Process multiple snapshots efficiently
+- 🎛️ **Console tools** - Rich CLI with dry-run, confirmation, and filtering options
 
 ## 🚀 Quick Start
 
@@ -96,14 +100,20 @@ php artisan snapshot:save "App\Models\Order" --id=123 --label=before-shipping
 # Compare snapshots
 php artisan snapshot:diff before-shipping after-shipping
 
-# List all snapshots
-php artisan snapshot:list
+# List all snapshots with filtering
+php artisan snapshot:list --model="App\Models\Order" --event=manual --limit=50
 
-# Generate reports
-php artisan snapshot:report --model="App\Models\Order" --id=123
+# Generate comprehensive reports
+php artisan snapshot:report --model="App\Models\Order" --id=123 --format=html
 
-# Clear snapshots
-php artisan snapshot:clear --model=Order
+# Model restoration with safety features
+php artisan snapshot:restore "App\Models\Order" 123 "backup-snapshot" --dry-run
+
+# Scheduled snapshots (for cron jobs)
+php artisan snapshot:schedule "App\Models\User" --limit=100
+
+# Clear snapshots with filtering
+php artisan snapshot:clear --model=Order --older-than=30 --dry-run
 ```
 
 ## 📊 Advanced Features
@@ -112,34 +122,92 @@ php artisan snapshot:clear --model=Order
 ```php
 // Get comprehensive statistics
 $stats = Snapshot::stats($order)
-    ->counters()
-    ->mostChangedFields()
-    ->changeFrequency()
+    ->counters()                    // Basic snapshot counts
+    ->mostChangedFields()           // Fields that change most often
+    ->changeFrequency()             // Changes over time periods
+    ->eventTypeAnalysis()           // Detailed event analysis
     ->get();
 
-// Results include:
-// - Total snapshots count
-// - Snapshots by event type
-// - Most frequently changed fields  
-// - Change frequency by day/week/month
+// Example results:
+$stats = [
+    'total_snapshots' => 150,
+    'snapshots_by_event' => ['manual' => 45, 'updated' => 85, 'created' => 20],
+    'most_changed_fields' => ['status' => 67, 'total' => 34, 'notes' => 28],
+    'changes_by_day' => ['2024-07-19' => 12, '2024-07-18' => 8],
+    'changes_by_week' => ['2024-29' => 45, '2024-28' => 38],
+    'changes_by_month' => ['2024-07' => 89, '2024-06' => 61],
+    'average_changes_per_day' => 3.2,
+    'event_type_percentages' => ['updated' => 56.7, 'manual' => 30.0, 'created' => 13.3],
+    'most_recent_by_event_type' => ['updated' => '2024-07-19 14:30:00', 'manual' => '2024-07-19 10:15:00']
+];
+
+// Get statistics as JSON
+$jsonStats = Snapshot::stats($order)->counters()->changeFrequency()->toJson();
 ```
 
 ### Timeline & History
 ```php
-// Get detailed timeline
+// Get detailed timeline with metadata
 $timeline = $order->getSnapshotTimeline(50); // Last 50 snapshots
+// Returns: [['id' => 1, 'label' => '...', 'event_type' => '...', 'created_at' => '...', 'data' => [...]], ...]
 
 // Generate reports in multiple formats
-$htmlReport = $order->getHistoryReport('html');
-$jsonReport = $order->getHistoryReport('json');
-$csvReport = $order->getHistoryReport('csv');
+$htmlReport = $order->getHistoryReport('html');    // Rich HTML with styling and diffs
+$jsonReport = $order->getHistoryReport('json');    // Structured data for APIs  
+$csvReport = $order->getHistoryReport('csv');      // Tabular format for analysis
+
+// Advanced report generation with custom options
+$report = SnapshotReport::for($order)
+    ->format('html')
+    ->options(['include_diffs' => true, 'max_entries' => 100])
+    ->generate();
+
+// Get latest snapshot and compare with current state
+$latestSnapshot = $order->getLatestSnapshot();
+$currentDiff = $order->compareWithSnapshot($latestSnapshot['id']);
+```
+
+### Scheduled Snapshots
+```php
+// Manual scheduled snapshot creation
+$result = Snapshot::scheduled($user, 'daily-backup-2024-07-19');
+
+// Via console command (ideal for cron jobs)
+php artisan snapshot:schedule "App\Models\User" --limit=100 --label=daily
+php artisan snapshot:schedule "App\Models\Order" --id=123 --label=backup
+
+// Add to your crontab or Laravel scheduler:
+// 0 2 * * * php artisan snapshot:schedule "App\Models\User" --limit=1000
+// 0 */6 * * * php artisan snapshot:schedule "App\Models\Order" --limit=500
+
+// Configure in schedule (app/Console/Kernel.php)
+$schedule->command('snapshot:schedule', ['App\Models\User', '--limit=1000'])
+         ->dailyAt('02:00');
+$schedule->command('snapshot:schedule', ['App\Models\Order', '--limit=500'])  
+         ->everySixHours();
 ```
 
 ### Model Restoration
 ```php
-// Restore model to previous state
+// Restore model to previous snapshot state
 $snapshot = $order->snapshots()->first();
-$order->restoreFromSnapshot($snapshot->id);
+$success = $order->restoreFromSnapshot($snapshot->id);
+
+// Or restore by snapshot label
+$success = $order->restoreFromSnapshot('before-important-change');
+
+// Compare current state with previous snapshot before restoring
+$diff = $order->compareWithSnapshot('backup-snapshot');
+if (!empty($diff['modified'])) {
+    echo "Changes would be applied:\n";
+    foreach ($diff['modified'] as $field => $change) {
+        echo "- {$field}: {$change['from']} → {$change['to']}\n";
+    }
+}
+
+// Restore via console command with safety features
+php artisan snapshot:restore "App\Models\Order" 123 "backup-snapshot" --dry-run
+php artisan snapshot:restore "App\Models\Order" 123 "backup-snapshot" --force
 ```
 
 ## 💾 Storage Backends
@@ -177,17 +245,47 @@ Snapshot::setStorage(new ArrayStorage());
 
 ## ⚙️ Configuration
 
-### Automatic Snapshots
+### Core Storage Settings
 ```php
 // config/snapshot.php
+'default' => 'database', // Default storage driver
+
+'drivers' => [
+    'database' => [
+        'driver' => 'database',
+        'table' => 'snapshots',
+    ],
+    'file' => [
+        'driver' => 'file',
+        'path' => storage_path('snapshots'),
+    ],
+    'array' => [
+        'driver' => 'array', // In-memory, for testing
+    ],
+],
+```
+
+### Serialization Options
+```php
+'serialization' => [
+    'include_hidden' => false,           // Include hidden model attributes
+    'include_timestamps' => true,        // Include created_at/updated_at
+    'include_relationships' => true,     // Include loaded relationships
+    'max_relationship_depth' => 3,       // Maximum depth for nested relationships
+],
+```
+
+### Automatic Snapshots
+```php
 'automatic' => [
     'enabled' => true,
+    'events' => ['created', 'updated', 'deleted'],
+    'exclude_fields' => ['updated_at', 'password', 'remember_token'],
     'models' => [
         'App\Models\Order' => ['created', 'updated', 'deleted'],
         'App\Models\User' => ['created', 'updated'],
         'App\Models\Payment' => ['created'],
     ],
-    'exclude_fields' => ['updated_at', 'password', 'remember_token'],
 ],
 ```
 
@@ -195,6 +293,7 @@ Snapshot::setStorage(new ArrayStorage());
 ```php
 'scheduled' => [
     'enabled' => true,
+    'default_frequency' => 'daily',
     'models' => [
         'App\Models\User' => 'daily',
         'App\Models\Order' => 'hourly',
@@ -207,8 +306,19 @@ Snapshot::setStorage(new ArrayStorage());
 ```php
 'retention' => [
     'enabled' => true,
-    'days' => 30,        // Keep snapshots for 30 days
-    'auto_cleanup' => true,
+    'days' => 30,              // Keep snapshots for 30 days
+    'auto_cleanup' => true,    // Automatically clean up old snapshots
+],
+```
+
+### Reports & Analytics
+```php
+'reports' => [
+    'enabled' => true,
+    'formats' => ['html', 'json', 'csv'],
+    'template' => 'default',
+    'max_timeline_entries' => 100,
+    'include_diffs' => true,
 ],
 ```
 
@@ -219,30 +329,35 @@ Snapshot::setStorage(new ArrayStorage());
 - Track price changes and discounts  
 - Monitor inventory levels over time
 - Audit payment transactions
+- **NEW**: Restore orders to previous states if processing errors occur
 
 ### Content Management
 - Version control for articles and pages
 - Track editorial changes and approvals
 - Backup content before major updates
 - Compare content versions
+- **NEW**: Generate change reports for editorial workflow
 
 ### User Management
 - Audit trail for profile changes
 - Track permission and role updates
 - Monitor sensitive data modifications
 - Compliance and security auditing
+- **NEW**: Analyze user behavior patterns through snapshot statistics
 
 ### Financial Applications
 - Snapshot account balances before transactions
 - Track investment portfolio changes
 - Audit financial calculations
 - Regulatory compliance reporting
+- **NEW**: Automated restoration procedures for transaction rollbacks
 
 ### Development & Testing
 - Debug model state changes during development
 - Verify expected changes in feature tests
 - Compare before/after states in CI/CD
 - Rollback safety during deployments
+- **NEW**: Performance analysis of data changes over time
 
 ## 🧪 Testing Support
 
