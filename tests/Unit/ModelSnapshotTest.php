@@ -32,8 +32,8 @@ test('it casts data and metadata as arrays', function () {
         'model_id' => '1',
         'label' => 'cast-test',
         'event_type' => 'auto',
-        'data' => json_encode(['test' => 'data']),
-        'metadata' => json_encode(['test' => 'meta']),
+        'data' => ['test' => 'data'],
+        'metadata' => ['test' => 'meta'],
     ]);
 
     expect($snapshot->data)->toBeArray()

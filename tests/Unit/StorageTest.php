@@ -17,8 +17,11 @@ describe('ArrayStorage', function () {
         $saved = $storage->save('test-label', $data);
         $loaded = $storage->load('test-label');
 
-        expect($saved)->toEqual($data)
-            ->and($loaded)->toEqual($data);
+        // ArrayStorage adds metadata to saved data
+        expect($saved)->toHaveKey('label', 'test-label')
+            ->and($saved)->toHaveKey('created_at')
+            ->and($saved)->toHaveKey('test', 'value')
+            ->and($loaded)->toEqual($saved); // loaded should equal saved data
     });
 
     test('it returns null for non-existent data', function () {

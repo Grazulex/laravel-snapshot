@@ -92,8 +92,9 @@ class TemplateRenderer
     private function replaceTokens(string $content, array $replacements): string
     {
         foreach ($replacements as $token => $value) {
-            $token = $this->normalizeToken($token);
-            $content = str_replace("{{$token}}", (string) $value, $content);
+            $normalizedToken = $this->normalizeToken($token);
+            $pattern = '{{'.$normalizedToken.'}}';
+            $content = str_replace($pattern, (string) $value, $content);
         }
 
         return $content;

@@ -13,17 +13,19 @@ abstract class TestCase extends Orchestra
     {
         parent::setUp();
 
-        // Run the package migration
+        // Run package migrations after app is set up
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->artisan('migrate', ['--database' => 'testing']);
     }
 
     final public function getEnvironmentSetUp($app): void
     {
+        // Configure in-memory SQLite database for testing
         config()->set('database.default', 'testing');
-
-        $migration = include __DIR__.'/../database/migrations/2025_01_19_000000_create_snapshots_table.php';
-        $migration->up();
+        config()->set('database.connections.testing', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
     }
 
     protected function getPackageProviders($app): array

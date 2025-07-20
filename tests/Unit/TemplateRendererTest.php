@@ -77,8 +77,9 @@ test('it handles templates with subtemplates', function () {
     $subStubPath = $stubsPath.'/item-template.stub';
     file_put_contents($subStubPath, 'Item: {{ITEM_NAME}} ');
 
-    $result = $renderer->render('main-template', [
-        'TITLE' => 'My List',
+    $result = $renderer->renderMultiple([
+        'name' => 'main-template',
+        'replacements' => ['TITLE' => 'My List'],
     ], [
         'ITEMS' => [
             ['name' => 'item-template', 'replacements' => ['ITEM_NAME' => 'First']],

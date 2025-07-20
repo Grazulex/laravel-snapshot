@@ -53,4 +53,4 @@ jobs:
         run: composer show -D
 
       - name: Execute tests
-        run: vendor/bin/phpunit tests/SimpleStorageTest.php tests/TemplateRendererStandaloneTest.php tests/AdditionalClassesTest.php
+        run: vendor/bin/pest
