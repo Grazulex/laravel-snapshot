@@ -67,7 +67,8 @@
         "issues": "https://github.com/Grazulex/laravel-snapshot/issues",
         "source": "https://github.com/Grazulex/laravel-snapshot",
         "forum": "https://github.com/Grazulex/laravel-snapshot/discussions",
-        "docs": "https://github.com/Grazulex/laravel-snapshot#readme"
+        "docs": "https://github.com/Grazulex/laravel-snapshot/wiki",
+        "wiki": "https://github.com/Grazulex/laravel-snapshot/wiki"
     },
     "scripts": {
         "test": [
