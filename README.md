@@ -1,435 +1,136 @@
 # Laravel Snapshot
 
-<img src="new_logo.png" alt="Laravel Snapshot" width="200">
+<div align="center">
+  <img src="new_logo.png" alt="Laravel Snapshot" width="200">
+  <p><strong>Advanced model versioning and snapshot system for Laravel applications</strong></p>
 
-Advanced model versioning and snapshot system for Laravel applications. Track model changes, create point-in-time snapshots, and restore previous states with comprehensive diff analysis.
+  [![Latest Version](https://img.shields.io/packagist/v/grazulex/laravel-snapshot.svg?style=flat-square)](https://packagist.org/packages/grazulex/laravel-snapshot)
+  [![Total Downloads](https://img.shields.io/packagist/dt/grazulex/laravel-snapshot.svg?style=flat-square)](https://packagist.org/packages/grazulex/laravel-snapshot)
+  [![License](https://img.shields.io/github/license/grazulex/laravel-snapshot.svg?style=flat-square)](https://github.com/Grazulex/laravel-snapshot/blob/main/LICENSE.md)
+  [![PHP Version](https://img.shields.io/packagist/php-v/grazulex/laravel-snapshot.svg?style=flat-square)](https://php.net/)
+  [![Laravel Version](https://img.shields.io/badge/laravel-12.x-ff2d20?style=flat-square&logo=laravel)](https://laravel.com/)
+  [![Tests](https://img.shields.io/github/actions/workflow/status/grazulex/laravel-snapshot/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/Grazulex/laravel-snapshot/actions)
+  [![Code Style](https://img.shields.io/badge/code%20style-pint-000000?style=flat-square&logo=laravel)](https://github.com/laravel/pint)
 
-[![Latest Version](https://img.shields.io/packagist/v/grazulex/laravel-snapshot.svg?style=flat-square)](https://packagist.org/packages/grazulex/laravel-snapshot)
-[![Total Downloads](https://img.shields.io/packagist/dt/grazulex/laravel-snapshot.svg?style=flat-square)](https://packagist.org/packages/grazulex/laravel-snapshot)
-[![License](https://img.shields.io/github/license/grazulex/laravel-snapshot.svg?style=flat-square)](https://github.com/Grazulex/laravel-snapshot/blob/main/LICENSE.md)
-[![PHP Version](https://img.shields.io/packagist/php-v/grazulex/laravel-snapshot.svg?style=flat-square)](https://php.net/)
-[![Laravel Version](https://img.shields.io/badge/laravel-12.x-ff2d20?style=flat-square&logo=laravel)](https://laravel.com/)
-[![Tests](https://img.shields.io/github/actions/workflow/status/grazulex/laravel-snapshot/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/Grazulex/laravel-snapshot/actions)
-[![Code Style](https://img.shields.io/badge/code%20style-pint-000000?style=flat-square&logo=laravel)](https://github.com/laravel/pint)
-
-## 📖 Table of Contents
-
-- [Overview](#overview)
-- [✨ Features](#-features)
-- [📦 Installation](#-installation)
-- [🚀 Quick Start](#-quick-start)
-- [📸 Creating Snapshots](#-creating-snapshots)
-- [🔄 Restoring Data](#-restoring-data)
-- [📊 Diff Analysis](#-diff-analysis)
-- [⚙️ Configuration](#️-configuration)
-- [📚 Documentation](#-documentation)
-- [💡 Examples](#-examples)
-- [🧪 Testing](#-testing)
-- [🔧 Requirements](#-requirements)
-- [🚀 Performance](#-performance)
-- [🤝 Contributing](#-contributing)
-- [🔒 Security](#-security)
-- [📄 License](#-license)
+</div>
 
 ## Overview
 
-Laravel Snapshot is an advanced model versioning and snapshot system that provides comprehensive change tracking, point-in-time snapshots, and restoration capabilities for Laravel applications. Perfect for audit trails, data recovery, and version control of your Eloquent models.
-
-**Perfect for financial applications, content management systems, and any application requiring detailed audit trails and data recovery.**
-
-### 🎯 Use Cases
-
-Laravel Snapshot is perfect for:
-
-- **Financial Systems** - Transaction history and audit trails
-- **Content Management** - Version control for articles and pages
-- **E-commerce** - Product and order history tracking  
-- **Data Recovery** - Point-in-time data restoration
-- **Compliance** - Regulatory audit trail requirements
+Laravel Snapshot is a powerful package for tracking, storing and comparing snapshots of your Eloquent models — cleanly and safely. Perfect for audit trails, data recovery, debugging, and version control of your Laravel applications.
 
 ## ✨ Features
 
-- 🚀 **Automatic Snapshots** - Automatic model state capturing on changes
-- 📸 **Manual Snapshots** - Create snapshots at specific points in time
-- 🔄 **Easy Restoration** - Restore models to any previous state
-- 📊 **Diff Analysis** - Detailed comparison between model versions
-- 🎯 **Selective Tracking** - Track only specific model attributes
-- 📋 **Metadata Support** - Store additional context with snapshots
-- 🔍 **Advanced Querying** - Query snapshots by date, user, or criteria
-- 🎨 **Relationship Tracking** - Track changes in model relationships
-- ✅ **Validation** - Validate snapshot integrity and consistency
-- 📈 **Performance Optimized** - Efficient storage and retrieval
-- 🧪 **Testing Support** - Built-in testing utilities
-- ⚡ **Batch Operations** - Handle bulk snapshot operations
+- � **Manual & Automatic Snapshots** - Capture model state on demand or automatically
+- 🔄 **Model Restoration** - Restore models to any previous snapshot state  
+- 📊 **Smart Comparisons** - Deep diff analysis between snapshots
+- 💾 **Multiple Storage Backends** - Database, file system, or in-memory storage
+- 📈 **Rich Analytics** - Statistics, change frequency, and trend analysis
+- ⚡ **CLI Commands** - Full command-line interface for all operations
+- 🧪 **Testing Support** - Built with Pest 3 and extensive test coverage
+- ✅ **Production Ready** - PHPStan level 5, optimized performance
 
-## 📦 Installation
-
-Install the package via Composer:
+## � Quick Installation
 
 ```bash
+# Install the package
 composer require grazulex/laravel-snapshot
-```
 
-> **💡 Auto-Discovery**  
-> The service provider will be automatically registered thanks to Laravel's package auto-discovery.
-
-Publish configuration:
-
-```bash
+# Publish config (optional)
 php artisan vendor:publish --tag=snapshot-config
-```
 
-Publish migrations:
-
-```bash
-php artisan vendor:publish --tag=snapshot-migrations
+# Run migrations
 php artisan migrate
 ```
 
-## 🚀 Quick Start
+## � Documentation
 
-### 1. Add the Trait to Your Model
+**All documentation, examples, and guides are now available in our comprehensive Wiki:**
+
+### 📚 [**Visit the Laravel Snapshot Wiki →**](https://github.com/Grazulex/laravel-snapshot/wiki)
+
+**Quick Navigation:**
+
+| Topic | Link |
+|-------|------|
+| 🏁 **Getting Started** | [Installation & Setup](https://github.com/Grazulex/laravel-snapshot/wiki/Installation) |
+| 📘 **Basic Usage** | [Creating & Managing Snapshots](https://github.com/Grazulex/laravel-snapshot/wiki/Basic-Usage) |
+| ⚙️ **Configuration** | [Configuration Options](https://github.com/Grazulex/laravel-snapshot/wiki/Configuration) |
+| 🔄 **Model Restoration** | [Restoring Previous States](https://github.com/Grazulex/laravel-snapshot/wiki/Model-Restoration) |
+| 📊 **Analytics & Reports** | [Statistics & Analytics](https://github.com/Grazulex/laravel-snapshot/wiki/Analytics) |
+| ⚡ **CLI Commands** | [Command Reference](https://github.com/Grazulex/laravel-snapshot/wiki/CLI-Commands) |
+| 💡 **Examples** | [Real-world Examples](https://github.com/Grazulex/laravel-snapshot/wiki/Examples) |
+| 🧪 **Testing** | [Testing Your Implementation](https://github.com/Grazulex/laravel-snapshot/wiki/Testing) |
+| 🔧 **Advanced Usage** | [Advanced Features](https://github.com/Grazulex/laravel-snapshot/wiki/Advanced-Usage) |
+| 🚀 **API Reference** | [Complete API Documentation](https://github.com/Grazulex/laravel-snapshot/wiki/API-Reference) |
+
+## 💡 Quick Example
 
 ```php
 use Grazulex\LaravelSnapshot\Traits\HasSnapshots;
 
-class User extends Model
+class Order extends Model
 {
     use HasSnapshots;
-    
-    // Optionally specify which attributes to track
-    protected $snapshotable = ['name', 'email', 'status'];
-    
-    // Exclude sensitive attributes
-    protected $snapshotExclude = ['password', 'remember_token'];
-}
-```
-
-### 2. Configure Automatic Snapshots
-
-```php
-// Automatic snapshots on model events
-class User extends Model
-{
-    use HasSnapshots;
-    
-    protected $snapshotEvents = ['created', 'updated', 'deleted'];
-    
-    // Custom snapshot triggers
-    protected $snapshotTriggers = [
-        'status_changed' => function ($model) {
-            return $model->isDirty('status');
-        }
-    ];
-}
-```
-
-### 3. Create and Manage Snapshots
-
-```php
-$user = User::find(1);
-
-// Create manual snapshot
-$snapshot = $user->createSnapshot('Before important update');
-
-// Update the model
-$user->update(['status' => 'active', 'email' => 'new@example.com']);
-
-// Get all snapshots
-$snapshots = $user->snapshots()->orderBy('created_at', 'desc')->get();
-
-// Get specific snapshot
-$latestSnapshot = $user->latestSnapshot();
-$firstSnapshot = $user->firstSnapshot();
-```
-
-### 4. Restore Previous States
-
-```php
-// Restore to latest snapshot
-$user->restoreFromLatestSnapshot();
-
-// Restore to specific snapshot
-$user->restoreFromSnapshot($snapshot);
-
-// Restore to specific date
-$user->restoreToDate(now()->subDays(7));
-
-// Preview restoration (without saving)
-$previewData = $user->previewRestore($snapshot);
-```
-
-## 📸 Creating Snapshots
-
-Laravel Snapshot provides flexible snapshot creation options:
-
-```php
-// Basic snapshot
-$user->createSnapshot();
-
-// Snapshot with description
-$user->createSnapshot('User activated premium account');
-
-// Snapshot with metadata
-$user->createSnapshot('Status change', [
-    'triggered_by' => auth()->id(),
-    'reason' => 'Admin approval',
-]);
-
-// Conditional snapshots
-$user->createSnapshotIf($user->isDirty('email'), 'Email updated');
-```
-
-## 🔄 Restoring Data
-
-Comprehensive data restoration capabilities:
-
-```php
-// Simple restoration
-$user->restoreFromSnapshot($snapshot);
-
-// Restoration with validation
-$user->restoreFromSnapshot($snapshot, ['validate' => true]);
-
-// Selective restoration (only specific attributes)
-$user->restoreFromSnapshot($snapshot, ['only' => ['name', 'status']]);
-
-// Restore to specific date
-$user->restoreToDate(now()->subDays(7));
-```
-
-## 📊 Diff Analysis
-
-Detailed comparison and analysis tools:
-
-```php
-use Grazulex\LaravelSnapshot\Analysis\Differ;
-
-$user = User::find(1);
-
-// Compare current state with snapshot
-$diff = $user->diffWithSnapshot($snapshot);
-
-foreach ($diff->getChanges() as $attribute => $change) {
-    echo "Attribute: {$attribute}\n";
-    echo "Old value: {$change['old']}\n";
-    echo "New value: {$change['new']}\n";
-    echo "Change type: {$change['type']}\n"; // added, modified, removed
 }
 
-// Compare two snapshots
-$diff = Differ::compare($snapshot1, $snapshot2);
-
-// Visual diff output
-echo $diff->toHtml(); // HTML formatted diff
-echo $diff->toMarkdown(); // Markdown formatted diff
-
-// Diff statistics
-$stats = $diff->getStats();
-echo "Total changes: {$stats['total']}\n";
-echo "Added: {$stats['added']}\n";
-echo "Modified: {$stats['modified']}\n";
-echo "Removed: {$stats['removed']}\n";
-```
-
-## ⚙️ Configuration
-
-Laravel Snapshot provides extensive configuration options:
-
-```php
-// config/snapshot.php
-return [
-    'storage' => [
-        'driver' => 'database', // database, file, s3
-        'table' => 'model_snapshots',
-        'compress' => true,
-    ],
-    
-    'automatic' => [
-        'enabled' => true,
-        'events' => ['created', 'updated'],
-        'throttle' => '1 minute', // Prevent duplicate snapshots
-    ],
-    
-    'retention' => [
-        'enabled' => true,
-        'keep_snapshots' => 100,
-        'keep_for_days' => 365,
-    ],
-    
-    'features' => [
-        'track_relationships' => true,
-        'track_metadata' => true,
-        'validate_integrity' => true,
-    ],
-];
-```
-
-## 📚 Documentation
-
-For detailed documentation, examples, and advanced usage:
-
-- 📚 [Full Documentation](docs/README.md)
-- 🎯 [Examples](examples/README.md)
-- 🔧 [Configuration](docs/configuration.md)
-- 🧪 [Testing](docs/testing.md)
-- 📊 [Diff Analysis](docs/diff-analysis.md)
-
-## 💡 Examples
-
-### Advanced Snapshot Management
-
-```php
-use Grazulex\LaravelSnapshot\Facades\Snapshot;
-
-// Batch snapshot creation
-Snapshot::batch(function () {
-    $users = User::where('created_at', '>=', now()->subDays(7))->get();
-    
-    foreach ($users as $user) {
-        $user->createSnapshot('Weekly backup');
-    }
-});
-
-// Snapshot with complex metadata
+// Create snapshots
 $order = Order::find(1);
-$order->createSnapshot('Order processed', [
-    'processor' => auth()->user()->name,
-    'location' => request()->header('X-Location'),
-    'version' => config('app.version'),
-    'environment' => app()->environment(),
-]);
+$order->snapshot('before-discount');
 
-// Conditional restoration
-$user = User::find(1);
-$snapshot = $user->snapshots()->where('description', 'Before migration')->first();
+$order->update(['total' => 99.99]);
+$order->snapshot('after-discount');
 
-if ($snapshot && $user->shouldRestore($snapshot)) {
-    $user->restoreFromSnapshot($snapshot);
-}
+// Compare and restore
+$diff = $order->compareWithSnapshot('before-discount');
+$order->restoreFromSnapshot('before-discount');
+
+// CLI usage
+php artisan snapshot:save "App\Models\Order" --id=1 --label=backup
+php artisan snapshot:restore "App\Models\Order" 1 backup
+php artisan snapshot:diff before-discount after-discount
 ```
 
-### Audit Trail Implementation
+## 🎯 Use Cases
 
-```php
-// Custom audit trail using snapshots
-class AuditTrail
-{
-    public static function track($model, $action)
-    {
-        $model->createSnapshot("Audit: {$action}", [
-            'audit_action' => $action,
-            'user_id' => auth()->id(),
-            'timestamp' => now(),
-            'session_id' => session()->getId(),
-        ]);
-    }
-    
-    public static function getAuditLog($model)
-    {
-        return $model->snapshots()
-            ->whereJsonContains('metadata->audit_action', '!=', null)
-            ->orderBy('created_at', 'desc')
-            ->get();
-    }
-}
+Perfect for:
 
-// Usage
-AuditTrail::track($user, 'login');
-AuditTrail::track($user, 'profile_update');
-$auditLog = AuditTrail::getAuditLog($user);
-```
-
-### Data Recovery Workflow
-
-```php
-// Data recovery service
-class DataRecoveryService
-{
-    public function recoverToDate($model, $date)
-    {
-        $snapshot = $model->snapshots()
-            ->where('created_at', '<=', $date)
-            ->orderBy('created_at', 'desc')
-            ->first();
-            
-        if ($snapshot) {
-            return $model->restoreFromSnapshot($snapshot);
-        }
-        
-        throw new Exception('No snapshot found for the specified date');
-    }
-    
-    public function previewRecovery($model, $snapshot)
-    {
-        $current = $model->toArray();
-        $restored = $snapshot->data;
-        
-        return [
-            'current' => $current,
-            'restored' => $restored,
-            'changes' => array_diff_assoc($restored, $current),
-        ];
-    }
-}
-```
-
-Check out the [examples directory](examples) for more examples.
-
-## 🧪 Testing
-
-Laravel Snapshot includes comprehensive testing utilities:
-
-```php
-use Grazulex\LaravelSnapshot\Testing\SnapshotTester;
-
-public function test_model_snapshot_creation()
-{
-    $user = User::factory()->create();
-    
-    SnapshotTester::make($user)
-        ->createSnapshot('Test snapshot')
-        ->assertSnapshotExists()
-        ->assertSnapshotCount(1)
-        ->assertSnapshotContains(['name', 'email']);
-}
-
-public function test_model_restoration()
-{
-    $user = User::factory()->create(['status' => 'inactive']);
-    $snapshot = $user->createSnapshot();
-    
-    $user->update(['status' => 'active']);
-    
-    SnapshotTester::make($user)
-        ->restoreFromSnapshot($snapshot)
-        ->assertRestoredSuccessfully()
-        ->assertAttribute('status', 'inactive');
-}
-```
+- **Financial Systems** - Transaction history and audit trails
+- **Content Management** - Version control for articles and pages  
+- **E-commerce** - Product and order change tracking
+- **Data Recovery** - Point-in-time data restoration
+- **Compliance** - Regulatory audit trail requirements
+- **Debugging** - Track state changes during development
 
 ## 🔧 Requirements
 
-- PHP: ^8.3
-- Laravel: ^12.0
-- Carbon: ^3.10
+- **PHP**: ^8.3
+- **Laravel**: ^12.19
+- **Carbon**: ^3.10
 
-## 🚀 Performance
+## 🧪 Quality Assurance
 
-Laravel Snapshot is optimized for performance:
-
-- **Efficient Storage**: Optimized snapshot data compression
-- **Smart Caching**: Intelligent snapshot caching strategies
-- **Batch Operations**: Efficient bulk snapshot processing
-- **Query Optimization**: Optimized database queries for large datasets
+- ✅ **95 Tests** passing with Pest 3
+- ✅ **PHPStan Level 5** compliance
+- ✅ **60%+ Code Coverage**
+- ✅ **Laravel Pint** code style
+- ✅ **Comprehensive CLI** testing
 
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
+### Development Commands
+
+```bash
+composer run-script full    # Run all quality checks
+composer run-script test    # Run tests
+composer run-script pint    # Fix code style
+composer run-script phpstan # Static analysis
+```
+
 ## 🔒 Security
 
-If you discover a security vulnerability, please review our [Security Policy](SECURITY.md) before disclosing it.
+If you discover a security vulnerability, please review our [Security Policy](SECURITY.md).
 
 ## 📄 License
 
@@ -437,18 +138,10 @@ Laravel Snapshot is open-sourced software licensed under the [MIT license](LICEN
 
 ---
 
-**Made with ❤️ for the Laravel community**
+<div align="center">
 
-### Resources
+**📚 [Complete Documentation](https://github.com/Grazulex/laravel-snapshot/wiki) | 💬 [Discussions](https://github.com/Grazulex/laravel-snapshot/discussions) | � [Issues](https://github.com/Grazulex/laravel-snapshot/issues)**
 
-- [📖 Documentation](docs/README.md)
-- [💬 Discussions](https://github.com/Grazulex/laravel-snapshot/discussions)
-- [🐛 Issue Tracker](https://github.com/Grazulex/laravel-snapshot/issues)
-- [📦 Packagist](https://packagist.org/packages/grazulex/laravel-snapshot)
+Made with ❤️ for the Laravel community
 
-### Community Links
-
-- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) - Our code of conduct
-- [CONTRIBUTING.md](CONTRIBUTING.md) - How to contribute
-- [SECURITY.md](SECURITY.md) - Security policy
-- [RELEASES.md](RELEASES.md) - Release notes and changelog
+</div>
