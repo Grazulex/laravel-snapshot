@@ -1,5 +1,5 @@
 {
-    "name": "grazulex/laravel-snapshot",
+    "name": "dogmaxpeppe/laravel-snapshot",
     "description": "A powerful Laravel package for tracking, storing and comparing snapshots of your Eloquent models — cleanly and safely.",
     "keywords": [
         "laravel",
