@@ -18,7 +18,7 @@
     "type": "library",
     "homepage": "https://github.com/grazulex/laravel-snapshot",
     "require": {
-        "php": "^8.5",
+        "php": "^8.3",
         "illuminate/support": "^13.0",
         "nesbot/carbon": "^3.10",
         "illuminate/contracts": "^13.0",
