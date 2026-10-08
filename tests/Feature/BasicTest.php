@@ -9,7 +9,7 @@ it('passes basic assertions', function () {
 });
 
 it('has PHP requirements', function () {
-    expect(PHP_VERSION_ID)->toBeGreaterThan(80300); // PHP 8.3+
+    expect(PHP_VERSION_ID)->toBeGreaterThanOrEqual(80400); // PHP 8.4+
     expect(extension_loaded('json'))->toBeTrue();
     expect(function_exists('mb_strtoupper'))->toBeTrue();
 });

@@ -103,7 +103,7 @@ Perfect for:
 
 ## 🔧 Requirements
 
-- **PHP**: ^8.3
+- **PHP**: ^8.4
 - **Laravel**: ^12.19
 - **Carbon**: ^3.10
 
