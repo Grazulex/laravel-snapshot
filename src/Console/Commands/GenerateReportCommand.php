@@ -63,8 +63,8 @@ class GenerateReportCommand extends Command
 
             return Command::SUCCESS;
 
-        } catch (Exception $e) {
-            $this->error("Failed to generate report: {$e->getMessage()}");
+        } catch (Exception $exception) {
+            $this->error("Failed to generate report: {$exception->getMessage()}");
 
             return Command::FAILURE;
         }

@@ -36,6 +36,7 @@ class DiffSnapshotCommand extends Command
                 foreach ($diff['added'] as $field => $value) {
                     $this->line("  + {$field}: ".json_encode($value));
                 }
+
                 $this->line('');
             }
 
@@ -44,6 +45,7 @@ class DiffSnapshotCommand extends Command
                 foreach ($diff['modified'] as $field => $change) {
                     $this->line("  ~ {$field}: ".json_encode($change['from']).' → '.json_encode($change['to']));
                 }
+
                 $this->line('');
             }
 
@@ -55,8 +57,8 @@ class DiffSnapshotCommand extends Command
             }
 
             return Command::SUCCESS;
-        } catch (Exception $e) {
-            $this->error("Failed to compare snapshots: {$e->getMessage()}");
+        } catch (Exception $exception) {
+            $this->error("Failed to compare snapshots: {$exception->getMessage()}");
 
             return Command::FAILURE;
         }

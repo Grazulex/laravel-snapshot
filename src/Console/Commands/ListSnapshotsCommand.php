@@ -22,7 +22,7 @@ class ListSnapshotsCommand extends Command
             $limit = (int) $this->option('limit');
 
             if ($modelFilter) {
-                $snapshots = array_filter($snapshots, function ($snapshot) use ($modelFilter): bool {
+                $snapshots = array_filter($snapshots, function (array $snapshot) use ($modelFilter): bool {
                     return isset($snapshot['model_type']) && $snapshot['model_type'] === $modelFilter;
                 });
             }
@@ -51,8 +51,8 @@ class ListSnapshotsCommand extends Command
             $this->info('Total snapshots: '.count($snapshots));
 
             return Command::SUCCESS;
-        } catch (Exception $e) {
-            $this->error("Failed to list snapshots: {$e->getMessage()}");
+        } catch (Exception $exception) {
+            $this->error("Failed to list snapshots: {$exception->getMessage()}");
 
             return Command::FAILURE;
         }

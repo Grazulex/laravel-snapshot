@@ -40,8 +40,8 @@ class SaveSnapshotCommand extends Command
             $this->info("Snapshot '{$label}' created successfully for {$modelClass}#{$id}");
 
             return Command::SUCCESS;
-        } catch (Exception $e) {
-            $this->error("Failed to create snapshot: {$e->getMessage()}");
+        } catch (Exception $exception) {
+            $this->error("Failed to create snapshot: {$exception->getMessage()}");
 
             return Command::FAILURE;
         }
