@@ -87,7 +87,7 @@ class FileStorage implements StorageInterface
         $deleted = 0;
 
         foreach ($files as $file) {
-            if ($modelClass !== null && $modelClass !== '' && $modelClass !== '0') {
+            if (! in_array($modelClass, [null, '', '0'], true)) {
                 $content = file_get_contents($file);
                 $data = json_decode($content, true);
                 if (isset($data['class']) && $data['class'] === $modelClass && unlink($file)) {

@@ -144,8 +144,8 @@ class RestoreSnapshotCommand extends Command
 
                 return self::FAILURE;
             }
-        } catch (InvalidArgumentException $e) {
-            $this->error("Error during restoration: {$e->getMessage()}");
+        } catch (InvalidArgumentException $invalidArgumentException) {
+            $this->error("Error during restoration: {$invalidArgumentException->getMessage()}");
 
             return self::FAILURE;
         }

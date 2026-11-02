@@ -106,8 +106,8 @@ class ScheduleSnapshotCommand extends Command
 
             return self::SUCCESS;
 
-        } catch (Exception $e) {
-            $this->error("Fatal error during scheduled snapshot creation: {$e->getMessage()}");
+        } catch (Exception $exception) {
+            $this->error("Fatal error during scheduled snapshot creation: {$exception->getMessage()}");
 
             return self::FAILURE;
         }

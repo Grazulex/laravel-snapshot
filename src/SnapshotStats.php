@@ -72,7 +72,9 @@ class SnapshotStats
                     $fieldChanges[$field] = ($fieldChanges[$field] ?? 0) + 1;
                 }
             }
-        }        // Sort by frequency (descending) and take top 10
+        }
+
+        // Sort by frequency (descending) and take top 10
         arsort($fieldChanges);
         $this->stats['most_changed_fields'] = array_slice($fieldChanges, 0, 10, true);
 

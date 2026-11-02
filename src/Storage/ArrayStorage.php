@@ -44,7 +44,7 @@ class ArrayStorage implements SnapshotStorage, StorageInterface
      */
     public function list(): array
     {
-        return array_map(function ($label, $data): array {
+        return array_map(function (int|string $label, array $data): array {
             return [
                 'label' => $label,
                 'created_at' => $data['timestamp'] ?? now()->toISOString(),

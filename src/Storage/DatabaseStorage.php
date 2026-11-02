@@ -63,7 +63,7 @@ class DatabaseStorage implements SnapshotStorage
     {
         $query = ModelSnapshot::query();
 
-        if ($modelClass !== null && $modelClass !== '' && $modelClass !== '0') {
+        if (! in_array($modelClass, [null, '', '0'], true)) {
             $query->where('model_type', $modelClass);
         }
 

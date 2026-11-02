@@ -44,6 +44,7 @@ class TemplateRenderer
                 foreach ($templateData as $item) {
                     $subContent .= $this->render($item['name'], $item['replacements'] ?? []);
                 }
+
                 $mainContent = str_replace("{{$placeholder}}", $subContent, $mainContent);
             }
         }
