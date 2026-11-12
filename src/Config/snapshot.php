@@ -56,6 +56,42 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Sensitive Fields
+    |--------------------------------------------------------------------------
+    |
+    | Fields listed under "encrypt" are stored encrypted with the application
+    | key and decrypted when the model is restored. Fields listed under "mask"
+    | are replaced by the mask value and are never restored. Fields can also
+    | be declared on the model with the $snapshotEncrypted and $snapshotMasked
+    | properties when it uses the HasSnapshots trait.
+    |
+    */
+    'sensitive' => [
+        'mask' => '********',
+        'models' => [
+            // 'App\Models\User' => [
+            //     'encrypt' => ['phone', 'birth_date'],
+            //     'mask' => ['national_id'],
+            // ],
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Snapshot Metadata
+    |--------------------------------------------------------------------------
+    |
+    | Control which request details are recorded with each snapshot. Disable
+    | them when you must not store personal data such as IP addresses.
+    |
+    */
+    'metadata' => [
+        'capture_ip_address' => true,
+        'capture_user_agent' => true,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Snapshot Retention
     |--------------------------------------------------------------------------
     |
