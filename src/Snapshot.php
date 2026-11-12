@@ -231,6 +231,8 @@ class Snapshot
 
         // Also save to database if model is Eloquent
         if ($model instanceof Model) {
+            $changedFields = self::detectChangedFields($model, $data);
+
             ModelSnapshot::create([
                 'model_type' => get_class($model),
                 'model_id' => $model->getKey(),
@@ -241,11 +243,55 @@ class Snapshot
                     'created_by' => auth()->id() ?? null,
                     'ip_address' => request()->ip() ?? null,
                     'user_agent' => request()->userAgent() ?? null,
+                    'changed_fields' => $changedFields,
                 ],
             ]);
         }
 
         return $result;
+    }
+
+    /**
+     * Determine which attributes changed since the previous snapshot of the same model.
+     *
+     * Returns an empty list when there is no previous snapshot to compare with.
+     *
+     * @return array<int, string>
+     */
+    private static function detectChangedFields(Model $model, array $data): array
+    {
+        $previous = ModelSnapshot::query()
+            ->where('model_type', get_class($model))
+            ->where('model_id', $model->getKey())
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
+            ->first();
+
+        if (! $previous instanceof ModelSnapshot) {
+            return [];
+        }
+
+        $previousData = $previous->data;
+
+        if (! isset($previousData['attributes'])
+            || ! is_array($previousData['attributes'])
+            || ! isset($data['attributes'])
+            || ! is_array($data['attributes'])) {
+            return [];
+        }
+
+        $diff = self::calculateDiff(
+            ['attributes' => $previousData['attributes']],
+            ['attributes' => $data['attributes']]
+        );
+
+        $fields = array_merge(
+            array_keys($diff['added'] ?? []),
+            array_keys($diff['modified'] ?? []),
+            array_keys($diff['removed'] ?? [])
+        );
+
+        return array_values(array_unique(array_map(strval(...), $fields)));
     }
 
     /**
