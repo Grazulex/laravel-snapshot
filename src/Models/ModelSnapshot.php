@@ -75,4 +75,12 @@ class ModelSnapshot extends Model
     {
         return $query->where('label', $label);
     }
+
+    /**
+     * Scope to snapshots created more than the given number of days ago.
+     */
+    public function scopeOlderThanDays($query, int $days)
+    {
+        return $query->where('created_at', '<', now()->subDays($days));
+    }
 }

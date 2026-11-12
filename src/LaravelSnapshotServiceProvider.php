@@ -28,6 +28,7 @@ final class LaravelSnapshotServiceProvider extends ServiceProvider
                 Console\Commands\ListSnapshotsCommand::class,
                 Console\Commands\GenerateReportCommand::class,
                 Console\Commands\ClearSnapshotsCommand::class,
+                Console\Commands\PruneSnapshotsCommand::class,
                 Console\Commands\RestoreSnapshotCommand::class,
                 Console\Commands\ScheduleSnapshotCommand::class,
             ]);
