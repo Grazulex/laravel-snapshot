@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Grazulex\LaravelSnapshot\Console\Commands;
 
 use Grazulex\LaravelSnapshot\Models\ModelSnapshot;
+use Grazulex\LaravelSnapshot\Snapshot;
 use Grazulex\LaravelSnapshot\Traits\HasSnapshots;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Encryption\DecryptException;
 use InvalidArgumentException;
 
 class RestoreSnapshotCommand extends Command
@@ -86,7 +88,18 @@ class RestoreSnapshotCommand extends Command
 
         // Show current vs snapshot data
         $currentAttributes = $model->getAttributes();
-        $snapshotAttributes = $snapshotData['attributes'];
+
+        try {
+            $snapshotAttributes = Snapshot::restorableAttributes($snapshotData);
+        } catch (DecryptException) {
+            $this->error('Encrypted fields of this snapshot cannot be decrypted with the current application key.');
+
+            return self::FAILURE;
+        }
+
+        $encryptedFields = isset($snapshotData['encrypted']) && is_array($snapshotData['encrypted'])
+            ? $snapshotData['encrypted']
+            : [];
 
         $changes = [];
         foreach ($snapshotAttributes as $key => $value) {
@@ -108,11 +121,13 @@ class RestoreSnapshotCommand extends Command
         $this->info('The following changes will be made:');
         $this->table(
             ['Field', 'Current Value', 'Snapshot Value'],
-            collect($changes)->map(fn ($change, $field): array => [
-                $field,
-                is_null($change['current']) ? 'NULL' : (string) $change['current'],
-                is_null($change['snapshot']) ? 'NULL' : (string) $change['snapshot'],
-            ])
+            collect($changes)->map(fn ($change, $field): array => in_array($field, $encryptedFields, true)
+                ? [$field, '[encrypted]', '[encrypted]']
+                : [
+                    $field,
+                    is_null($change['current']) ? 'NULL' : (string) $change['current'],
+                    is_null($change['snapshot']) ? 'NULL' : (string) $change['snapshot'],
+                ])
         );
 
         // Dry run mode

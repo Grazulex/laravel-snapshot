@@ -9,6 +9,7 @@ use Grazulex\LaravelSnapshot\Storage\ArrayStorage;
 use Grazulex\LaravelSnapshot\Storage\DatabaseStorage;
 use Grazulex\LaravelSnapshot\Storage\FileStorage;
 use Grazulex\LaravelSnapshot\Storage\SnapshotStorage;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 
@@ -68,7 +69,7 @@ class Snapshot
             throw new InvalidArgumentException("Snapshot '{$labelB}' not found");
         }
 
-        return self::calculateDiff($snapshotA, $snapshotB);
+        return self::calculateDiff(self::decryptSnapshot($snapshotA), self::decryptSnapshot($snapshotB));
     }
 
     /**
@@ -135,19 +136,66 @@ class Snapshot
     {
         if ($model instanceof Model) {
             $excludeFields = config('snapshot.automatic.exclude_fields', []);
-            $attributes = $model->toArray();
+
+            $source = config('snapshot.serialization.include_hidden', false)
+                ? (clone $model)->makeVisible($model->getHidden())
+                : $model;
+
+            $attributes = $source->toArray();
 
             // Remove excluded fields
             foreach ($excludeFields as $field) {
                 unset($attributes[$field]);
             }
 
-            return [
+            $original = array_diff_key($model->getOriginal(), array_flip($excludeFields));
+
+            [$encryptFields, $maskFields] = self::sensitiveFieldsFor($model);
+
+            $masked = [];
+            $encrypted = [];
+            $mask = config('snapshot.sensitive.mask', '********');
+
+            foreach ($maskFields as $field) {
+                if (array_key_exists($field, $attributes)) {
+                    $attributes[$field] = $mask;
+                    $masked[$field] = true;
+                }
+
+                if (array_key_exists($field, $original)) {
+                    $original[$field] = $mask;
+                    $masked[$field] = true;
+                }
+            }
+
+            foreach ($encryptFields as $field) {
+                if (array_key_exists($field, $attributes)) {
+                    $attributes[$field] = self::encryptValue($attributes[$field]);
+                    $encrypted[$field] = true;
+                }
+
+                if (array_key_exists($field, $original)) {
+                    $original[$field] = self::encryptValue($original[$field]);
+                    $encrypted[$field] = true;
+                }
+            }
+
+            $data = [
                 'class' => get_class($model),
                 'attributes' => $attributes,
-                'original' => array_diff_key($model->getOriginal(), array_flip($excludeFields)),
+                'original' => $original,
                 'timestamp' => now()->toISOString(),
             ];
+
+            if ($encrypted !== []) {
+                $data['encrypted'] = array_keys($encrypted);
+            }
+
+            if ($masked !== []) {
+                $data['masked'] = array_keys($masked);
+            }
+
+            return $data;
         }
 
         if (is_array($model) || is_object($model)) {
@@ -199,6 +247,121 @@ class Snapshot
     }
 
     /**
+     * Decrypt the encrypted fields of a serialized snapshot.
+     *
+     * Masked fields keep their mask value. Values that cannot be decrypted
+     * (for example after an application key rotation) are left untouched.
+     */
+    public static function decryptSnapshot(array $data): array
+    {
+        $fields = self::fieldList($data, 'encrypted');
+
+        if ($fields === []) {
+            return $data;
+        }
+
+        foreach (['attributes', 'original'] as $section) {
+            if (! isset($data[$section]) || ! is_array($data[$section])) {
+                continue;
+            }
+
+            foreach ($fields as $field) {
+                if (! array_key_exists($field, $data[$section]) || ! is_string($data[$section][$field])) {
+                    continue;
+                }
+
+                try {
+                    $data[$section][$field] = self::decryptValue($data[$section][$field]);
+                } catch (DecryptException) {
+                    // Keep the stored value when it cannot be decrypted.
+                }
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get the attributes of a serialized snapshot that can be written back to a model.
+     *
+     * Encrypted fields are decrypted and masked fields are left out, so a
+     * restore never overwrites a real value with its mask.
+     *
+     * @throws DecryptException When an encrypted field cannot be decrypted
+     */
+    public static function restorableAttributes(array $data): array
+    {
+        $attributes = isset($data['attributes']) && is_array($data['attributes']) ? $data['attributes'] : [];
+
+        foreach (self::fieldList($data, 'masked') as $field) {
+            unset($attributes[$field]);
+        }
+
+        foreach (self::fieldList($data, 'encrypted') as $field) {
+            if (array_key_exists($field, $attributes) && is_string($attributes[$field])) {
+                $attributes[$field] = self::decryptValue($attributes[$field]);
+            }
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * Resolve the fields to encrypt and to mask for a model.
+     *
+     * @return array{0: array<int, string>, 1: array<int, string>}
+     */
+    private static function sensitiveFieldsFor(Model $model): array
+    {
+        $configured = config('snapshot.sensitive.models', []);
+        $modelConfig = is_array($configured) && isset($configured[get_class($model)]) && is_array($configured[get_class($model)])
+            ? $configured[get_class($model)]
+            : [];
+
+        $encrypt = (array) ($modelConfig['encrypt'] ?? []);
+        $mask = (array) ($modelConfig['mask'] ?? []);
+
+        if (method_exists($model, 'getSnapshotEncryptedFields')) {
+            $encrypt = array_merge($encrypt, (array) $model->getSnapshotEncryptedFields());
+        }
+
+        if (method_exists($model, 'getSnapshotMaskedFields')) {
+            $mask = array_merge($mask, (array) $model->getSnapshotMaskedFields());
+        }
+
+        $mask = array_values(array_unique(array_map(strval(...), $mask)));
+
+        // Masking wins over encryption when a field is declared in both lists.
+        $encrypt = array_values(array_diff(array_unique(array_map(strval(...), $encrypt)), $mask));
+
+        return [$encrypt, $mask];
+    }
+
+    /**
+     * Read a list of field names stored in a serialized snapshot.
+     *
+     * @return array<int, string>
+     */
+    private static function fieldList(array $data, string $key): array
+    {
+        if (! isset($data[$key]) || ! is_array($data[$key])) {
+            return [];
+        }
+
+        return array_values(array_map(strval(...), $data[$key]));
+    }
+
+    private static function encryptValue(mixed $value): string
+    {
+        return app('encrypter')->encryptString((string) json_encode($value));
+    }
+
+    private static function decryptValue(string $payload): mixed
+    {
+        return json_decode(app('encrypter')->decryptString($payload), true);
+    }
+
+    /**
      * Get the current storage instance.
      */
     private static function getStorage(): SnapshotStorage
@@ -241,8 +404,8 @@ class Snapshot
                 'data' => $data,
                 'metadata' => [
                     'created_by' => auth()->id() ?? null,
-                    'ip_address' => request()->ip() ?? null,
-                    'user_agent' => request()->userAgent() ?? null,
+                    'ip_address' => config('snapshot.metadata.capture_ip_address', true) ? request()->ip() : null,
+                    'user_agent' => config('snapshot.metadata.capture_user_agent', true) ? request()->userAgent() : null,
                     'changed_fields' => $changedFields,
                 ],
             ]);
@@ -271,7 +434,9 @@ class Snapshot
             return [];
         }
 
-        $previousData = $previous->data;
+        // Compare decrypted values: encryption is not deterministic.
+        $previousData = self::decryptSnapshot((array) $previous->data);
+        $data = self::decryptSnapshot($data);
 
         if (! isset($previousData['attributes'])
             || ! is_array($previousData['attributes'])

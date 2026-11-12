@@ -88,10 +88,36 @@ trait HasSnapshots
             throw new InvalidArgumentException("Snapshot with ID or label {$snapshotId} not found");
         }
 
+        $previousData = is_string($previousSnapshot->data) ? json_decode($previousSnapshot->data, true) : $previousSnapshot->data;
+
         return Snapshot::calculateDiff(
-            is_string($previousSnapshot->data) ? json_decode($previousSnapshot->data, true) : $previousSnapshot->data,
-            $currentSnapshot
+            Snapshot::decryptSnapshot((array) $previousData),
+            Snapshot::decryptSnapshot($currentSnapshot)
         );
+    }
+
+    /**
+     * Get the fields stored encrypted in this model's snapshots.
+     *
+     * Reads the optional $snapshotEncrypted property of the model.
+     *
+     * @return array<int, string>
+     */
+    public function getSnapshotEncryptedFields(): array
+    {
+        return property_exists($this, 'snapshotEncrypted') ? array_values((array) $this->snapshotEncrypted) : [];
+    }
+
+    /**
+     * Get the fields masked in this model's snapshots.
+     *
+     * Reads the optional $snapshotMasked property of the model.
+     *
+     * @return array<int, string>
+     */
+    public function getSnapshotMaskedFields(): array
+    {
+        return property_exists($this, 'snapshotMasked') ? array_values((array) $this->snapshotMasked) : [];
     }
 
     /**
@@ -111,7 +137,7 @@ trait HasSnapshots
         $data = is_string($snapshot->data) ? json_decode($snapshot->data, true) : $snapshot->data;
 
         if (isset($data['attributes'])) {
-            $this->fill($data['attributes']);
+            $this->fill(Snapshot::restorableAttributes($data));
 
             return $this->save();
         }
