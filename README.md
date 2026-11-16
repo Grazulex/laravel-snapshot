@@ -83,6 +83,8 @@ $order->snapshot('after-discount');
 // Compare and restore
 $diff = $order->compareWithSnapshot('before-discount');
 $order->restoreFromSnapshot('before-discount');
+$order->restoreFromSnapshot('before-discount', ['only' => ['total'], 'dry_run' => true]);
+$copy = $order->restoreAsNew('before-discount');
 
 // CLI usage
 php artisan snapshot:save "App\Models\Order" --id=1 --label=backup

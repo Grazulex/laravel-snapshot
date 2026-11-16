@@ -16,6 +16,13 @@ use InvalidArgumentException;
 trait HasSnapshots
 {
     /**
+     * Report of the last snapshot restore made with this model.
+     *
+     * @var array{snapshot_id: mixed, mode: string, dry_run: bool, restored: array<int, string>, ignored: array<string, string>}|null
+     */
+    protected ?array $lastSnapshotRestoreReport = null;
+
+    /**
      * Get all snapshots for this model.
      */
     public function snapshots(): HasMany
@@ -122,27 +129,90 @@ trait HasSnapshots
 
     /**
      * Restore this model to a previous snapshot state.
+     *
+     * Supported options:
+     * - only: restore only these attributes
+     * - except: restore every attribute but these
+     * - dry_run: build the restore report without changing or saving the model
+     *
+     * The report of the last restore is available with getLastSnapshotRestoreReport().
+     *
+     * @param  array{only?: array<int, string>, except?: array<int, string>, dry_run?: bool}  $options
      */
-    public function restoreFromSnapshot($snapshotId): bool
+    public function restoreFromSnapshot($snapshotId, array $options = []): bool
     {
-        $snapshot = $this->snapshots()->where(function ($query) use ($snapshotId): void {
-            $query->where('id', $snapshotId)
-                ->orWhere('label', $snapshotId);
-        })->first();
-
-        if (! $snapshot) {
-            throw new InvalidArgumentException("Snapshot with ID or label {$snapshotId} not found");
-        }
+        $options = $this->normalizeSnapshotRestoreOptions($options);
+        $snapshot = $this->findSnapshotForRestore($snapshotId);
 
         $data = is_string($snapshot->data) ? json_decode($snapshot->data, true) : $snapshot->data;
 
-        if (isset($data['attributes'])) {
-            $this->fill(Snapshot::restorableAttributes($data));
+        if (! is_array($data) || ! isset($data['attributes'])) {
+            $this->lastSnapshotRestoreReport = null;
 
-            return $this->save();
+            return false;
         }
 
-        return false;
+        [$attributes, $report] = $this->resolveSnapshotRestore($snapshot->id, $data, $options, false);
+
+        $this->lastSnapshotRestoreReport = $report;
+
+        if ($options['dry_run']) {
+            return true;
+        }
+
+        $this->fill($attributes);
+
+        return $this->save();
+    }
+
+    /**
+     * Create a new model from a snapshot of this model, leaving this model untouched.
+     *
+     * The primary key and the timestamps of the snapshot are not copied. Accepts the
+     * same options as restoreFromSnapshot(); with dry_run the copy is returned unsaved.
+     *
+     * @param  array{only?: array<int, string>, except?: array<int, string>, dry_run?: bool}  $options
+     * @return static
+     */
+    public function restoreAsNew($snapshotId, array $options = [])
+    {
+        $options = $this->normalizeSnapshotRestoreOptions($options);
+        $snapshot = $this->findSnapshotForRestore($snapshotId);
+
+        $data = is_string($snapshot->data) ? json_decode($snapshot->data, true) : $snapshot->data;
+
+        if (! is_array($data) || ! isset($data['attributes'])) {
+            throw new InvalidArgumentException("Snapshot with ID or label {$snapshotId} has no attributes to restore");
+        }
+
+        [$attributes, $report] = $this->resolveSnapshotRestore($snapshot->id, $data, $options, true);
+
+        /** @var static $copy */
+        $copy = $this->newInstance();
+        $copy->fill($attributes);
+
+        if (! $options['dry_run']) {
+            $copy->save();
+        }
+
+        $this->lastSnapshotRestoreReport = $report;
+        $copy->lastSnapshotRestoreReport = $report;
+
+        return $copy;
+    }
+
+    /**
+     * Get the report of the last restoreFromSnapshot() or restoreAsNew() call on this model.
+     *
+     * Keys: snapshot_id, mode ('update' or 'copy'), dry_run, restored (names of the
+     * attributes written) and ignored (attribute name => reason). Reasons are
+     * 'filtered' (only/except), 'masked', 'primary_key', 'timestamp' and 'not_fillable'.
+     *
+     * @return array{snapshot_id: mixed, mode: string, dry_run: bool, restored: array<int, string>, ignored: array<string, string>}|null
+     */
+    public function getLastSnapshotRestoreReport(): ?array
+    {
+        return $this->lastSnapshotRestoreReport;
     }
 
     /**
@@ -189,5 +259,105 @@ trait HasSnapshots
                 Snapshot::auto($model, 'deleted');
             });
         }
+    }
+
+    /**
+     * Find a snapshot of this model by ID or label.
+     */
+    private function findSnapshotForRestore($snapshotId): ModelSnapshot
+    {
+        $snapshot = $this->snapshots()->where(function ($query) use ($snapshotId): void {
+            $query->where('id', $snapshotId)
+                ->orWhere('label', $snapshotId);
+        })->first();
+
+        if (! $snapshot instanceof ModelSnapshot) {
+            throw new InvalidArgumentException("Snapshot with ID or label {$snapshotId} not found");
+        }
+
+        return $snapshot;
+    }
+
+    /**
+     * Validate and normalize the options of a snapshot restore.
+     *
+     * @return array{only: array<int, string>|null, except: array<int, string>, dry_run: bool}
+     */
+    private function normalizeSnapshotRestoreOptions(array $options): array
+    {
+        $unknown = array_diff(array_keys($options), ['only', 'except', 'dry_run']);
+
+        if ($unknown !== []) {
+            throw new InvalidArgumentException('Unknown restore option(s): '.implode(', ', $unknown));
+        }
+
+        foreach (['only', 'except'] as $key) {
+            if (array_key_exists($key, $options) && ! is_array($options[$key])) {
+                throw new InvalidArgumentException("The restore option '{$key}' must be an array of attribute names");
+            }
+        }
+
+        return [
+            'only' => array_key_exists('only', $options) ? array_values(array_map(strval(...), $options['only'])) : null,
+            'except' => array_values(array_map(strval(...), $options['except'] ?? [])),
+            'dry_run' => (bool) ($options['dry_run'] ?? false),
+        ];
+    }
+
+    /**
+     * Compute the attributes a restore writes and the report of the ignored ones.
+     *
+     * @param  array{only: array<int, string>|null, except: array<int, string>, dry_run: bool}  $options
+     * @return array{0: array<string, mixed>, 1: array{snapshot_id: mixed, mode: string, dry_run: bool, restored: array<int, string>, ignored: array<string, string>}}
+     */
+    private function resolveSnapshotRestore($snapshotId, array $data, array $options, bool $asCopy): array
+    {
+        $stored = is_array($data['attributes']) ? $data['attributes'] : [];
+        $ignored = [];
+
+        foreach (array_keys($stored) as $field) {
+            $field = (string) $field;
+
+            if (($options['only'] !== null && ! in_array($field, $options['only'], true))
+                || in_array($field, $options['except'], true)) {
+                $ignored[$field] = 'filtered';
+                unset($stored[$field]);
+            }
+        }
+
+        $data['attributes'] = $stored;
+        $restorable = Snapshot::restorableAttributes($data);
+
+        foreach (array_keys(array_diff_key($stored, $restorable)) as $field) {
+            $ignored[(string) $field] = 'masked';
+        }
+
+        $timestampColumns = $this->usesTimestamps()
+            ? array_filter([$this->getCreatedAtColumn(), $this->getUpdatedAtColumn()])
+            : [];
+
+        $attributes = [];
+
+        foreach ($restorable as $field => $value) {
+            $field = (string) $field;
+
+            if ($asCopy && $field === $this->getKeyName()) {
+                $ignored[$field] = 'primary_key';
+            } elseif ($asCopy && in_array($field, $timestampColumns, true)) {
+                $ignored[$field] = 'timestamp';
+            } elseif (! $this->isFillable($field)) {
+                $ignored[$field] = 'not_fillable';
+            } else {
+                $attributes[$field] = $value;
+            }
+        }
+
+        return [$attributes, [
+            'snapshot_id' => $snapshotId,
+            'mode' => $asCopy ? 'copy' : 'update',
+            'dry_run' => $options['dry_run'],
+            'restored' => array_map(strval(...), array_keys($attributes)),
+            'ignored' => $ignored,
+        ]];
     }
 }
